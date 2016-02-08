@@ -1,0 +1,4 @@
+- user ||= @user
+
+= form_for user, :html => { :class => 'ui form' }, :remote => true do |f|
+  = render 'fields', :locals => { :user => user }

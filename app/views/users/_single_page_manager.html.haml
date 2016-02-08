@@ -1,0 +1,36 @@
+- id = bd_id
+- trailing_form ||= false
+- users ||= @users
+
+.brain-damage-single-page-manager{ :id => id }
+  %table.ui.table.brain-damage-table
+    = render "table.header"
+
+    - users do |user|
+      = r "table.item", { :user => user }
+
+  :javascript
+    new BrainDamage.SinglePageManager("##{id}");
+
+-# %table
+-#   %thead
+-#     %tr
+-# -#       %th Name
+-# -#       %th
+-#       %th
+-#       %th
+
+-#   %tbody
+-#     - @users.each do |user|
+-#       %tr
+-# -#         %td= user.name
+-# -#         %td= link_to 'Show', user
+-#         %td= link_to 'Edit', edit_user_path(user)
+-#         %td= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+-# %br
+
+-# = link_to 'New User', new_user_path
+
+-#   :javascript
+-#     new BrainDamage.SinglePageManager("##{id}");
