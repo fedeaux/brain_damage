@@ -12,9 +12,9 @@
         %a
           %i.brain-damage-edit.edit.icon
 
-        = link_to user, :method => :delete, :remote => true, :data => { :confirm => confirm }, :class => 'brain-damage-delete' do
+        = link_to user, :method => :delete, :remote => true, :data => { :confirm => 'Are you sure?' }, :class => 'brain-damage-delete' do
           %i.trash.icon
 
   %tr.brain-damage-edit-list-item{ :data => { :item => { :for => user.id }}}
     %td{ :colspan => 3 }
-      = r 'list.item.form', :user => user
+      = r 'table.item.form', :user => user

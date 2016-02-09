@@ -1,8 +1,11 @@
 Description:
-    Explain the generator
+    Brain Damage is used to generate ajax scaffolds with ease
 
 Example:
-    rails generate brain_damage Thing
-
+    rails generate brain_damage:install
     This will create:
-        what/will/it/create
+        helpers/brain_damage_helper.rb
+
+    rails generate brain_damage:scaffold same args that would go with scaffold
+    This will create:
+        more files than scaffold, and it will be ajax :D

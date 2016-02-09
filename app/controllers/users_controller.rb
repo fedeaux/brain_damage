@@ -24,7 +24,16 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to @user, notice: 'User was successfully created.'
+      respond_to do |format|
+        format.json {
+          render :json => { :html => render_to_string(:partial => 'table.item', :formats => [:html]) }
+        }
+
+        format.html {
+          redirect_to @user, notice: 'User was successfully created.'
+        }
+      end
+
     else
       render :new
     end
@@ -33,7 +42,16 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
-      redirect_to @user, notice: 'User was successfully updated.'
+      respond_to do |format|
+        format.json {
+          render :json => { :html => render_to_string(:partial => 'table.item', :formats => [:html]) }
+        }
+
+        format.html {
+          redirect_to @user, notice: 'User was successfully updated.'
+        }
+      end
+
     else
       render :edit
     end
@@ -42,7 +60,17 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
-    redirect_to users_url, notice: 'User was successfully destroyed.'
+
+    respond_to do |format|
+      format.json {
+        render :nothing => true, :status => 200
+      }
+
+      format.html {
+        redirect_to users_url, notice: 'User was successfully destroyed.'
+      }
+    end
+
   end
 
   private

@@ -24,7 +24,7 @@ module Haml
     protected
 
       def available_views
-        %w(index show _form _fields _single_page_manager _table.item _table.header)
+        %w(index show _form _fields _single_page_manager _table.item _table.header _table.form _table.item.form)
       end
 
       def handler

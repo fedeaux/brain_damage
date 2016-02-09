@@ -4,33 +4,12 @@
 
 .brain-damage-single-page-manager{ :id => id }
   %table.ui.table.brain-damage-table
-    = render "table.header"
+    = r "table.header"
 
-    - users do |user|
+    - users.each do |user|
       = r "table.item", { :user => user }
+
+    = r "table.form"
 
   :javascript
     new BrainDamage.SinglePageManager("##{id}");
-
--# %table
--#   %thead
--#     %tr
--# -#       %th Name
--# -#       %th
--#       %th
--#       %th
-
--#   %tbody
--#     - @users.each do |user|
--#       %tr
--# -#         %td= user.name
--# -#         %td= link_to 'Show', user
--#         %td= link_to 'Edit', edit_user_path(user)
--#         %td= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
--# %br
-
--# = link_to 'New User', new_user_path
-
--#   :javascript
--#     new BrainDamage.SinglePageManager("##{id}");
