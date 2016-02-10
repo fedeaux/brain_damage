@@ -10,7 +10,12 @@ BrainDamage::Application.describe do |description|
     },
 
     :views => {
-      :index => :single_page_manager
+      :index => :table,
+      :show => {
+        :master_ressource => {
+          :list_type => :table
+        }
+      }
       #   by default a create form will include forms to add children,
       # an edit form will include forms to add or delete children
     }
@@ -27,7 +32,15 @@ BrainDamage::Application.describe do |description|
       :belongs_to => :lead
     },
 
-    # :views can be omitted for default views
+    :views => {
+      :index => {
+        :single_page_manager => {
+          :list_type => :table
+        }
+      },
+      #   by default a create form will include forms to add children,
+      # an edit form will include forms to add or delete children
+    }
   }
 
   description
