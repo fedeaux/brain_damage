@@ -22,6 +22,9 @@ module Haml
       end
 
     protected
+      def view_parameters
+        BrainDamage::Application.description
+      end
 
       def available_views
         %w(index show _form _fields _single_page_manager _table.item _table.header _table.form _table.item.form)

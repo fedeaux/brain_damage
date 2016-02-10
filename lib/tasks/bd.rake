@@ -5,10 +5,12 @@ namespace :bd do
   task recreate: :environment do
     Rails::Generators.invoke("brain_damage", ["--destroy=true"])
     Rails::Generators.invoke("brain_damage")
+    Rake::Task["db:migrate"].invoke
   end
 
   task create: :environment do
     Rails::Generators.invoke("brain_damage")
+    Rake::Task["db:migrate"].invoke
   end
 
   task destroy: :environment do

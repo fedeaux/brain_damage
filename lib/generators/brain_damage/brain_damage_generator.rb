@@ -16,20 +16,25 @@ class BrainDamageGenerator < Rails::Generators::Base
 
   def create
     unless options.destroy?
-      puts "Creating"
+      puts "Creating BrainDamage App"
       require Rails.root+'app/description'
+
       BrainDamage::Application.description.scaffolds.each do |name, scaffold_info|
-        BrainDamage::Scaffold.new(name, scaffold_info).create
+        scaffold_generator = BrainDamage::Scaffold.new name, scaffold_info
+        scaffold_generator.create
       end
     end
   end
 
   def destroy
     if options.destroy?
-      puts "Destroying BrainDamage"
+      puts "Destroying BrainDamage App"
       require Rails.root+'app/description'
       BrainDamage::Application.description.scaffolds.each do |name, scaffold_info|
         `rake db:rollback`
+      end
+
+      BrainDamage::Application.description.scaffolds.each do |name, scaffold_info|
         `rails d scaffold #{name}`
       end
     end

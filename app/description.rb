@@ -1,30 +1,31 @@
 BrainDamage::Application.describe do |description|
   description.scaffolds['Story'] = {
-    :fields => [
+    :fields => {
       :title => :string,
       :contents => :text
-    ],
+    },
 
-    :relationships => [
+    :relationships => {
       :has_many => :entries
-    ],
+    },
 
-    :views => [
+    :views => {
       :index => :single_page_manager
       #   by default a create form will include forms to add children,
       # an edit form will include forms to add or delete children
-    ]
+    }
   }
 
   description.scaffolds['Entry'] = {
-    :fields => [
+    :fields => {
+      :story_id => :integer,
       :contents => :text,
       :event_date => :datetime
-    ],
+    },
 
-    :relationships => [
+    :relationships => {
       :belongs_to => :story
-    ],
+    },
 
     # :views can be omitted for default views
   }
