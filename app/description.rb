@@ -1,5 +1,5 @@
 BrainDamage::Application.describe do |description|
-  description.scaffolds['Story'] = {
+  description.scaffolds['Lead'] = {
     :fields => {
       :title => :string,
       :contents => :text
@@ -24,7 +24,7 @@ BrainDamage::Application.describe do |description|
     },
 
     :relationships => {
-      :belongs_to => :story
+      :belongs_to => :lead
     },
 
     # :views can be omitted for default views

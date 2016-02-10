@@ -1,5 +1,13 @@
+require 'rails/generators'
+
 module BrainDamage
   class Scaffold
+    @@current_scaffold = nil
+
+    def self.current_scaffold
+      @@current_scaffold
+    end
+
     def initialize(name, args)
       @scaffold_command = nil
       @name = name
@@ -7,13 +15,16 @@ module BrainDamage
     end
 
     def create
-      `#{@scaffold_command}`
+      @@current_scaffold = self
+
+      Rails::Generators.invoke "scaffold", [@name, @fields_as_parameters,
+        '--template-engine=haml', '--no-assets', '--orm=active_record', '--migration'],
+        { migration: true, timestamps: true }
     end
 
     private
     def parse_args(args)
-      fields_as_string = args[:fields].map{ |name, type| "#{name}:#{type}" }.join ' '
-      @scaffold_command = "rails g scaffold #{@name} #{fields_as_string} --no-assets --template-engine=haml"
+      @fields_as_parameters = args[:fields].map{ |name, type| "#{name}:#{type}" }
     end
 
     def available_views
