@@ -13,6 +13,10 @@ module Haml
         end
       end
 
+      def vsf
+        puts methods.join " "
+      end
+
     protected
       def current_scaffold
         BrainDamage::Scaffold.current_scaffold
