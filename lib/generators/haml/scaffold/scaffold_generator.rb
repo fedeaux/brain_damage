@@ -9,7 +9,7 @@ module Haml
       def copy_view_files
         available_views.each do |view|
           filename = filename_with_extensions(view)
-          template "#{view}.html.haml", File.join("app/views", controller_file_path, filename)
+          template "views/#{view}.html.haml", File.join("app/views", controller_file_path, filename)
         end
       end
 

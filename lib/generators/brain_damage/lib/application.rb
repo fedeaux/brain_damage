@@ -7,9 +7,16 @@ module BrainDamage
       @scaffolds = Hash.new {}
     end
 
-    def self.describe(&block)
+    def add_scaffold(name)
+      @scaffolds[name] = BrainDamage::Scaffold.new name
+      yield(@scaffolds[name]) if block_given?
+    end
+
+    def self.describe
       @@description = Application.new
-      block.call @@description
+      yield( @@description ) if block_given?
+
+      puts @@description.inspect
     end
 
     def self.description
