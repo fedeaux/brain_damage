@@ -5,7 +5,7 @@ BrainDamage::Application.describe do |d|
       description: :text,
     }
 
-    # views(:single_page_manager)
+    s.view_schema = :single_page_manager
   end
 
   d.add_scaffold('Contact') do |s|
@@ -16,64 +16,57 @@ BrainDamage::Application.describe do |d|
       ac_column: :string
     }
 
-    # views: {
-    #   schema: :full_entity,
-    #   views: {
-    #     forms: {
-    #       fields=: {
-    #         contact_role_id: {
-    #           type: :select,
-    #           parameters: [:name, :id]
-    #         }
-    #       }
-    #     }
-    #   }
-    # }
-  end
+    s.view_schema = :full_entity
 
-  d.add_scaffold('Commission') do |s|
-    s.fields = {
-      user_id: :integer,
-      percentage: { type: :decimal, precision: 4, scale: 2 },
-      contact_role_id: :integer,
-      ac_column: :string
+    s.form_fields = {
+      contact_role_id: {
+        type: :select,
+        parameters: [:name, :id]
+      }
     }
-
-  #   views: {
-  #     schema: :full_entity,
-  #     views: {
-  #       forms: {
-  #         fields=: {
-  #           contact_role_id: {
-  #             type: :select,
-  #             parameters: [:name, :id]
-  #           }
-  #         }
-  #       }
-  #     }
-  #   }
-  # }
   end
 
-  d.add_scaffold('Document') do |s|
+  d.add_scaffold('Email') do |s|
     s.fields = {
       name: :string,
-      archive: :string,
-      description: :string,
-      owner_id: :integer,
-      owner_type: :integer
+      description: :text,
+      onwer_id: :integer,
+      owner_type: :string,
+      primary: :boolean
     }
+
+    s.view_schema = :dependent_only
   end
+
+  # d.add_scaffold('Commission') do |s|
+  #   s.fields = {
+  #     user_id: :integer,
+  #     percentage: { type: :decimal, precision: 4, scale: 2, default: 0.0 },
+  #     value: { type: :decimal, precision: 12, scale: 2, default: 0.0 },
+  #     type: :string,
+  #     financial_id: :integer,
+  #   }
+
+  #   view_schema = :single_page_manager
+  # end
+
+  # d.add_scaffold('Document') do |s|
+  #   s.fields = {
+  #     name: :string,
+  #     archive: :string,
+  #     description: :string,
+  #     owner_id: :integer,
+  #     owner_type: :integer
+  #   }
+
+  #   view_schema = :single_page_manager
+  # end
 
   d.add_scaffold('Lead') do |s|
     s.fields = {
       title: :string,
       contents: :text
     }
-
-    # views: {
-    #   schema: :full_entity
-    # }
   end
 
   d.add_scaffold('Entry') do |s|
@@ -82,19 +75,6 @@ BrainDamage::Application.describe do |d|
       contents: :text,
       event_date: :datetime
     }
-
-    # relationships: {
-    #   belongs_to: :lead
-    # },
-
-    # views: {
-    #   schema: :dependent_only,
-    #   relationships: {
-    #     lead: {
-    #       type: :none
-    #     }
-    #   }
-    # }
   end
 
   d.add_scaffold('User') do |s|
@@ -103,19 +83,5 @@ BrainDamage::Application.describe do |d|
       contents: :text,
       event_date: :datetime
     }
-
-    # relationships: {
-    #   belongs_to: :lead
-    # },
-
-    # views: {
-    #   type: :dependent_only,
-    #   relationships: {
-    #     lead: {
-    #       type: :none
-    #     }
-    #   }
-      #   by default a create form will include forms to add children,
-      # an edit form will include forms to add or delete children
   end
 end

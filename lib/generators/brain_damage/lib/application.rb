@@ -8,19 +8,26 @@ module BrainDamage
     end
 
     def add_scaffold(name)
-      @scaffolds[name] = BrainDamage::Scaffold.new name
-      yield(@scaffolds[name]) if block_given?
+      scaffold = BrainDamage::Scaffold.new name
+      yield(scaffold) if block_given?
+      @scaffolds[name] = scaffold
     end
 
     def self.describe
-      @@description = Application.new
+      @@description = BrainDamage::Application.new
       yield( @@description ) if block_given?
-
-      puts @@description.inspect
     end
 
     def self.description
       @@description
+    end
+
+    def make
+      scaffolds.each do |name, scaffold|
+        puts "Creating #{name}"
+        puts scaffold.inspect
+        scaffold.create
+      end
     end
   end
 end

@@ -20,10 +20,7 @@ module BrainDamage
         puts "Creating BrainDamage App"
         require Rails.root+'app/description'
 
-        BrainDamage::Application.description.scaffolds.each do |name, scaffold_info|
-          scaffold_generator = BrainDamage::Scaffold.new name, scaffold_info
-          scaffold_generator.create
-        end
+        BrainDamage::Application.description.make
       end
     end
 

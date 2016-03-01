@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'rails/generators'
 
 module BrainDamage
@@ -7,6 +8,8 @@ module BrainDamage
     attr_accessor :fields
     attr_accessor :name
     attr_accessor :views
+    attr_accessor :view_schema
+    attr_accessor :form_fields
 
     def self.current_scaffold
       @@current_scaffold
@@ -16,16 +19,26 @@ module BrainDamage
       @scaffold_command = nil
       @name = name
       @args = args
+      @fields = {}
 
       yield(self) if block_given?
     end
 
     def create
-      # @@current_scaffold = self
+      return if @fields.empty?
+      @@current_scaffold = self
 
-      # Rails::Generators.invoke "scaffold", [@name, @fields_as_parameters,
-      #   '--template-engine=haml', '--no-assets', '--orm=active_record', '--migration'],
-      #   { migration: true, timestamps: true }
+      Rails::Generators.invoke "scaffold", [@name, fields_as_parameters,
+        '--template-engine=haml', '--no-assets', '--orm=active_record', '--migration'],
+        { migration: true, timestamps: true }
+    end
+
+    def fields_as_parameters
+      @fields.map { |name, type| field_as_parameter name, type }.join ' '
+    end
+
+    def field_as_parameter(name, type)
+      "#{name.to_s}:#{type.to_s}"
     end
 
     private
