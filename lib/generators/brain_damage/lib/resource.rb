@@ -1,10 +1,11 @@
 require_relative 'inputs/factory'
+require_relative 'views_manager'
 
 module BrainDamage
   class Resource
     attr_accessor :name
     attr_accessor :fields
-    attr_accessor :view_schema
+    attr_reader :views_manager
 
     def initialize(args)
       @plugins = {}
@@ -36,6 +37,8 @@ module BrainDamage
     end
 
     def specify_input(name, parameters)
+      parameters[:parameters] ||= {}
+      parameters[:parameters][:name] = name
       @inputs[name] = BrainDamage::Inputs::Factory.make parameters[:type], parameters[:parameters]
     end
 
@@ -45,6 +48,10 @@ module BrainDamage
 
     def input_for(name)
       @inputs[name.to_sym]
+    end
+
+    def set_view_schema(args)
+      @views_manager = BrainDamage::ViewsManager.new args
     end
   end
 end

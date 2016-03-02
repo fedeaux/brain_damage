@@ -7,18 +7,18 @@
   ac_info: :string
 }
 
-@view_schema = :full_entity
+set_view_schema(
+  type: :full_entity,
+  options: {
+    layout: :two_columns
+  }
+)
 
-# specify_input :contact_role_id, {
-#   type: :select,
-#   parameters: [:name, :id]
-# }
+specify_input :contact_role_id, {
+  type: :simple_select,
+  parameters: { display: :name, value: :id}
+}
 
 specify_input :ac_info, {
   type: :hidden
 }
-
-# add_form_field :contact_role_id, {
-#   type: :select,
-#   parameters: [:name, :id]
-# }

@@ -4,4 +4,9 @@
   name: :string,
 }
 
-@view_schema = :single_page_manager
+set_view_schema({
+  type: :single_page_manager,
+  options: {
+    layout: :two_columns
+  }
+})

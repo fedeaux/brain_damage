@@ -36,7 +36,7 @@ module BrainDamage
     end
 
     def copy_view_files
-      available_views.each do |view|
+      @resource.views_manager.available_views.each do |view|
         filename = "#{view}.html.haml"
         template "views/#{filename}", File.join("app/views", controller_file_path, filename)
       end
@@ -67,10 +67,6 @@ module BrainDamage
 
       description_file = description.split('=').last.strip.gsub('.rb', '')+'.rb'
       File.open Rails.root+'description/'+description_file
-    end
-
-    def available_views
-      %w(index show _form _fields _single_page_manager _table.item _table.header _table.form _table.item.form)
     end
 
     def handler
