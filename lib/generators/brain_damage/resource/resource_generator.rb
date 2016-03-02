@@ -19,12 +19,9 @@ module BrainDamage
 
     def self.start(args, config)
       resource = get_resource_description args
+      puts resource.as_cmd_parameters
       args = resource.as_cmd_parameters
-      puts args
       super
-    end
-
-    def find_brain_damage_description
     end
 
     def create_controller_files
@@ -51,9 +48,7 @@ module BrainDamage
     protected
 
     def self.get_resource_description(args)
-      file = get_description_file_from_args(args)
-
-      BrainDamage::Resource.new file
+      BrainDamage::Resource.new get_description_file_from_args args
     end
 
     def self.get_description_file_from_args(args)

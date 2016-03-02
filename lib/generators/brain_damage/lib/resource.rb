@@ -5,6 +5,10 @@ module BrainDamage
     attr_accessor :view_schema
 
     def initialize(args)
+      @plugins = {}
+      @inputs = {}
+      self.fields = {}
+
       if args.is_a? File
         instance_eval args.read
       end
@@ -20,6 +24,14 @@ module BrainDamage
 
     def field_as_parameter(name, type)
       "#{name.to_s}:#{type.to_s}"
+    end
+
+    def add_plugin(name, parameters)
+      @plugins[name] = parameters
+    end
+
+    def specify_input(name, parameters)
+      @inputs[name] = parameters
     end
   end
 end

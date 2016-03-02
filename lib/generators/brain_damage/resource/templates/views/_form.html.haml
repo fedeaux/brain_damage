@@ -1,5 +1,5 @@
 - cancel_button ||= false
-- <%= singular_table_name %> = <%= singular_table_name %> || @<%= singular_table_name %> || <%= name %>.new
+- <%= singular_table_name %> ||= @<%= singular_table_name %> || <%= name %>.new
 
 = form_for <%= singular_table_name %>, :html => { :class => 'ui form' }, :remote => true do |f|
   = r 'fields', :<%= singular_table_name %> => <%= singular_table_name %>, :f => f
