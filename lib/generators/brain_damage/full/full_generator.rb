@@ -20,7 +20,7 @@ module BrainDamage
       end
 
       descriptions.each do |description|
-        system "rails #{action} brain_damage:resource --description=#{description}"
+        system "rails #{action} brain_damage:resource --description=#{description} -p"
       end
     end
   end

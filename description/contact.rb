@@ -9,9 +9,13 @@
 
 @view_schema = :full_entity
 
-specify_input :contact_role_id, {
-  type: :select,
-  parameters: [:name, :id]
+# specify_input :contact_role_id, {
+#   type: :select,
+#   parameters: [:name, :id]
+# }
+
+specify_input :ac_info, {
+  type: :hidden
 }
 
 # add_form_field :contact_role_id, {

@@ -1,3 +1,5 @@
+require_relative 'inputs/factory'
+
 module BrainDamage
   class Resource
     attr_accessor :name
@@ -18,6 +20,9 @@ module BrainDamage
       [name] + fields_as_parameters
     end
 
+    def include_attribute_on_form
+    end
+
     def fields_as_parameters
       @fields.map { |name, type| field_as_parameter name, type }
     end
@@ -31,7 +36,15 @@ module BrainDamage
     end
 
     def specify_input(name, parameters)
-      @inputs[name] = parameters
+      @inputs[name] = BrainDamage::Inputs::Factory.make parameters[:type], parameters[:parameters]
+    end
+
+    def input_specified?(name)
+      @inputs.has_key? name.to_sym
+    end
+
+    def input_for(name)
+      @inputs[name.to_sym]
     end
   end
 end

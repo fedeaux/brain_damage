@@ -17,11 +17,18 @@ module BrainDamage
 
     hook_for :resource_route, required: true, in: :rails
 
+    class << self
+      attr_accessor :resource
+    end
+
     def self.start(args, config)
-      resource = get_resource_description args
-      puts resource.as_cmd_parameters
+      self.resource = get_resource_description args
       args = resource.as_cmd_parameters
       super
+    end
+
+    def set_resource_object
+      @resource = self.class.resource
     end
 
     def create_controller_files

@@ -1,6 +1,10 @@
 <% for attribute in attributes -%>
+<% if @resource.input_specified?(attribute.name) -%>
+  <%= @resource.input_for(attribute.name).html %>
+<% else -%>
 .field
   = f.label :<%= attribute.name %>
   = f.<%= attribute.field_type %> :<%= attribute.name %>
 
+<% end -%>
 <% end -%>
