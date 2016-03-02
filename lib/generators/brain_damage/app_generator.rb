@@ -3,7 +3,6 @@ require_relative 'lib/scaffold'
 
 module BrainDamage
   class AppGenerator < Rails::Generators::Base
-    source_root File.expand_path('../templates', __FILE__)
     class_option :destroy, :type => :boolean, :default => false, :description => "Should destroy the application instead of creating it"
     class_option :install, :type => :boolean, :default => false, :description => "Add basic files"
 

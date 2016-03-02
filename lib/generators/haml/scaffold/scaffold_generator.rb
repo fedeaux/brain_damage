@@ -5,6 +5,7 @@ module Haml
   module Generators
     class ScaffoldGenerator < Erb::Generators::ScaffoldGenerator
       source_root File.expand_path("../templates", __FILE__)
+      class_option :orm, :default => :active_record
 
       def copy_view_files
         available_views.each do |view|
@@ -13,8 +14,8 @@ module Haml
         end
       end
 
-      def vsf
-        puts methods.join " "
+      def create_controller_files
+        template 'controller.rb', File.join('app/controllers', controller_file_name)
       end
 
     protected

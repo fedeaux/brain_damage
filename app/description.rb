@@ -8,35 +8,35 @@ BrainDamage::Application.describe do |d|
     s.view_schema = :single_page_manager
   end
 
-  d.add_scaffold('Contact') do |s|
-    s.fields = {
-      name: :string,
-      title: :string,
-      contact_role_id: :integer,
-      ac_column: :string
-    }
+  # d.add_scaffold('Contact') do |s|
+  #   s.fields = {
+  #     name: :string,
+  #     title: :string,
+  #     contact_role_id: :integer,
+  #     ac_column: :string
+  #   }
 
-    s.view_schema = :full_entity
+  #   s.view_schema = :full_entity
 
-    s.form_fields = {
-      contact_role_id: {
-        type: :select,
-        parameters: [:name, :id]
-      }
-    }
-  end
+  #   s.form_fields = {
+  #     contact_role_id: {
+  #       type: :select,
+  #       parameters: [:name, :id]
+  #     }
+  #   }
+  # end
 
-  d.add_scaffold('Email') do |s|
-    s.fields = {
-      name: :string,
-      description: :text,
-      onwer_id: :integer,
-      owner_type: :string,
-      primary: :boolean
-    }
+  # d.add_scaffold('Email') do |s|
+  #   s.fields = {
+  #     name: :string,
+  #     description: :text,
+  #     onwer_id: :integer,
+  #     owner_type: :string,
+  #     primary: :boolean
+  #   }
 
-    s.view_schema = :dependent_only
-  end
+  #   s.view_schema = :dependent_only
+  # end
 
   # d.add_scaffold('Commission') do |s|
   #   s.fields = {
@@ -62,26 +62,26 @@ BrainDamage::Application.describe do |d|
   #   view_schema = :single_page_manager
   # end
 
-  d.add_scaffold('Lead') do |s|
-    s.fields = {
-      title: :string,
-      contents: :text
-    }
-  end
+  # d.add_scaffold('Lead') do |s|
+  #   s.fields = {
+  #     title: :string,
+  #     contents: :text
+  #   }
+  # end
 
-  d.add_scaffold('Entry') do |s|
-    s.fields = {
-      lead_id: :integer,
-      contents: :text,
-      event_date: :datetime
-    }
-  end
+  # d.add_scaffold('Entry') do |s|
+  #   s.fields = {
+  #     lead_id: :integer,
+  #     contents: :text,
+  #     event_date: :datetime
+  #   }
+  # end
 
-  d.add_scaffold('User') do |s|
-    s.fields = {
-      lead_id: :integer,
-      contents: :text,
-      event_date: :datetime
-    }
-  end
+  # d.add_scaffold('User') do |s|
+  #   s.fields = {
+  #     lead_id: :integer,
+  #     contents: :text,
+  #     event_date: :datetime
+  #   }
+  # end
 end

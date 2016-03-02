@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-require 'rails/generators'
-
 module BrainDamage
   class Scaffold
     @@current_scaffold = nil
@@ -28,9 +26,14 @@ module BrainDamage
       return if @fields.empty?
       @@current_scaffold = self
 
+      # `rails g scaffold #{[@name, fields_as_parameters,
+      #   '--template-engine=haml', '--no-assets', '--orm=active_record', '--migration'].join(' ')}`
+
       Rails::Generators.invoke "scaffold", [@name, fields_as_parameters,
         '--template-engine=haml', '--no-assets', '--orm=active_record', '--migration'],
-        { migration: true, timestamps: true }
+        behavior: :invoke, destination_root: Rails.root, migration: true, timestamps: true
+
+      # { migration: true, timestamps: true }
     end
 
     def fields_as_parameters
