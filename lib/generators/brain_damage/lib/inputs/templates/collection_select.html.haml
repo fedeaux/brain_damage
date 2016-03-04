@@ -1,0 +1,3 @@
+.field
+  = f.label :<%= attribute.name %>
+  = f.collection_select(:<%= attribute.name %>, <%= options[:model] %>.all, :<%= options[:value] %>, :<%= options[:display] %>)

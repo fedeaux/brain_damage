@@ -1,0 +1,11 @@
+- contact_role = contact_role || @contact_role || ContactRole.new
+
+= form_for contact_role, :html => { :class => 'ui form' }, :remote => true do |f|
+  = r 'fields', :contact_role => contact_role, :f => f
+
+  .actions
+    - if contact_role.persisted?
+      = f.submit 'Save', :class => 'ui primary button'
+
+    - else
+      = f.submit 'Add', :class => 'ui primary button'

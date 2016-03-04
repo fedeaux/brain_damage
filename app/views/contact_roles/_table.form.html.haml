@@ -1,0 +1,13 @@
+- id = bd_id
+- contact_role ||= @contact_role
+
+%tbody
+  %tr{:id => id}
+    %td.brain-damage-trigger{:colspan => 99}
+      .ui.basic.small.button.brain-damage-show Adicionar
+
+    %td.brain-damage-hidden-form{:colspan => 99, :style => 'display: none'}
+      = r 'form', :cancel_button => true, :contact_role => contact_role
+
+  :javascript
+    new BrainDamage.TrailingAjaxForm("##{id}")

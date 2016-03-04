@@ -1,0 +1,11 @@
+- cancel_button ||= false
+- contact_role ||= @contact_role || ContactRole.new
+
+= form_for contact_role, :html => { :class => 'ui form' }, :remote => true do |f|
+  = r 'fields', :contact_role => contact_role, :f => f
+
+  .actions
+    = f.submit 'Save', :class => 'ui primary button'
+
+    - if cancel_button
+      .ui.basic.button.brain-damage-cancel Cancel

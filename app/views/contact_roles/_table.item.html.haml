@@ -1,0 +1,20 @@
+- contact_role ||= @contact_role
+
+%tbody.brain-damage-list-item-wrapper
+  %tr.brain-damage-list-item{ :data => { :item => { :id => contact_role.id }}}
+    %td= contact_role.name
+
+    %td.brain-damage-actions-wrapper
+      .brain-damage-actions
+        = link_to contact_role do
+          %i.eye.icon
+
+        %a
+          %i.brain-damage-edit.edit.icon
+
+        = link_to contact_role, :method => :delete, :remote => true, :data => { :confirm => 'Are you sure?' }, :class => 'brain-damage-delete' do
+          %i.trash.icon
+
+  %tr.brain-damage-edit-list-item{ :data => { :item => { :for => contact_role.id }}}
+    %td{ :colspan => 3 }
+      = r 'table.item.form', :contact_role => contact_role

@@ -37,17 +37,19 @@ module BrainDamage
     end
 
     def specify_input(name, parameters)
-      parameters[:parameters] ||= {}
-      parameters[:parameters][:name] = name
-      @inputs[name] = BrainDamage::Inputs::Factory.make parameters[:type], parameters[:parameters]
+      parameters[:options] ||= {}
+      parameters[:options][:name] = name
+      @inputs[name] = BrainDamage::Inputs::Factory.make parameters[:type], parameters[:options]
     end
 
-    def input_specified?(name)
-      @inputs.has_key? name.to_sym
+    def input_specified?(attribute)
+      @inputs.has_key? attribute.name.to_sym
     end
 
-    def input_for(name)
-      @inputs[name.to_sym]
+    def input_for(attribute)
+      input = @inputs[attribute.name.to_sym]
+      input.attribute = attribute
+      input
     end
 
     def set_view_schema(args)

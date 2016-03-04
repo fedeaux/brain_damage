@@ -1,15 +1,17 @@
+require 'erb'
+
 module BrainDamage
   module Inputs
     class SimpleSelect
-      def initialize(args)
-      end
+      attr_accessor :attribute
+      attr_reader :options
 
-      def template_name
-        ''
+      def initialize(options)
+        @options = options
       end
 
       def html
-        ''
+        ERB.new(File.open("#{__dir__}/templates/collection_select.html.haml").read).result(binding)
       end
     end
   end
