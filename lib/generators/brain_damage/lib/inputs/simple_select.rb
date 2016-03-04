@@ -4,6 +4,10 @@ module BrainDamage
       def initialize(args)
       end
 
+      def template_name
+        ''
+      end
+
       def html
         ''
       end

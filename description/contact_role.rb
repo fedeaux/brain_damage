@@ -5,8 +5,5 @@
 }
 
 set_view_schema({
-  type: :single_page_manager,
-  options: {
-    layout: :two_columns
-  }
+  type: :single_page_manager
 })

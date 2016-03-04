@@ -1,0 +1,7 @@
+- <%= singular_table_name %> ||= @<%= singular_table_name %>
+
+%tbody.brain-damage-list-item-wrapper
+  %tr.brain-damage-list-item{ :data => { :item => { :id => <%= singular_table_name %>.id }}}
+<% for attribute in attributes -%>
+    %td= <%= singular_table_name %>.<%= attribute.name %>
+<% end -%>

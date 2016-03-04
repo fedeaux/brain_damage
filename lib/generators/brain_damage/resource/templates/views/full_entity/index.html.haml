@@ -1,0 +1,9 @@
+%h1.ui.header <%= plural_table_name.titleize %>
+
+= link_to 'New <%= singular_table_name.titleize %>', new_<%= singular_table_name %>_path
+
+%table.ui.table.brain-damage-table.brain-damage-list
+  = r "table.header"
+
+  - @<%= plural_table_name %>.each do |<%= singular_table_name %>|
+    = r "table.item", { :<%= singular_table_name %> => <%= singular_table_name %> }

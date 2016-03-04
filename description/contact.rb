@@ -8,16 +8,13 @@
 }
 
 set_view_schema(
-  type: :full_entity,
-  options: {
-    layout: :two_columns
-  }
+  type: :full_entity
 )
 
-specify_input :contact_role_id, {
-  type: :simple_select,
-  parameters: { display: :name, value: :id}
-}
+# specify_input :contact_role_id, {
+#   type: :simple_select,
+#   parameters: { display: :name, value: :id}
+# }
 
 specify_input :ac_info, {
   type: :hidden
