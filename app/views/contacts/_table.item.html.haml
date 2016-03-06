@@ -2,7 +2,11 @@
 
 %tbody.brain-damage-list-item-wrapper
   %tr.brain-damage-list-item{ :data => { :item => { :id => contact.id }}}
-    %td= contact.name
-    %td= contact.title
-    %td= contact.contact_role_id
-    %td= contact.ac_info
+  %td= contact.name
+
+  %td= contact.title
+
+  %td= link_to(contact.contact_role.name, contact.contact_role) if contact.contact_role
+
+  %td= contact.ac_info
+

@@ -29,6 +29,7 @@ module BrainDamage
 
     def set_resource_object
       @resource = self.class.resource
+      @resource.generator = self
     end
 
     def create_controller_files
@@ -56,7 +57,7 @@ module BrainDamage
     protected
 
     def self.get_resource_description(args)
-      BrainDamage::Resource.new get_description_file_from_args args
+      BrainDamage::Resource.new get_description_file_from_args(args)
     end
 
     def self.get_description_file_from_args(args)

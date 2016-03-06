@@ -1,5 +1,66 @@
 Rails.application.routes.draw do
   resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
+  resources :contacts
   resources :contact_roles
   resources :contacts
   resources :contacts

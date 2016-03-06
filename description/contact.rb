@@ -11,11 +11,24 @@ set_view_schema(
   type: :full_entity
 )
 
-specify_input :contact_role_id, {
-  type: :simple_select,
-  options: { model: :ContactRole, display: :name, value: :id}
+describe_field :contact_role_id, {
+  type: :belongs_to,
+
+  input: {
+    type: :simple_select,
+    options: { model: :ContactRole, display: :name, value: :id}
+  },
+
+  display: {
+    type: :link_to,
+    options: {
+      method: :contact_role,
+      display: :name,
+      null: :ignore
+    }
+  }
 }
 
-specify_input :ac_info, {
-  type: :hidden
+describe_field :ac_info, {
+  type: :internal
 }

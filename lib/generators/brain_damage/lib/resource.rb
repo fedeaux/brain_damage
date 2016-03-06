@@ -1,19 +1,22 @@
-require_relative 'inputs/factory'
+require_relative 'field_description'
+require_relative 'displays/factory'
 require_relative 'views_manager'
 
 module BrainDamage
   class Resource
     attr_accessor :name
     attr_accessor :fields
+    attr_accessor :generator
     attr_reader :views_manager
 
     def initialize(args)
       @plugins = {}
-      @inputs = {}
+      @fields_descriptions = {}
+
       self.fields = {}
 
       if args.is_a? File
-        instance_eval args.read
+        instance_eval args.read, args.path
       end
     end
 
@@ -36,24 +39,41 @@ module BrainDamage
       @plugins[name] = parameters
     end
 
-    def specify_input(name, parameters)
-      parameters[:options] ||= {}
-      parameters[:options][:name] = name
-      @inputs[name] = BrainDamage::Inputs::Factory.make parameters[:type], parameters[:options]
+    def describe_field(name, description)
+      description[:options] ||= {}
+      description[:options][:name] = name
+      @fields_descriptions[name] = BrainDamage::FieldDescription.new name, description, self
     end
 
-    def input_specified?(attribute)
-      @inputs.has_key? attribute.name.to_sym
+    def field_described?(attribute)
+      @fields_descriptions.has_key? attribute.name.to_sym
     end
 
-    def input_for(attribute)
-      input = @inputs[attribute.name.to_sym]
-      input.attribute = attribute
-      input
+    def field_description(attribute)
+      description = @fields_descriptions[attribute.name.to_sym]
+
+      return nil unless description
+
+      description.attribute = attribute
+      description
     end
 
     def set_view_schema(args)
       @views_manager = BrainDamage::ViewsManager.new args
+    end
+
+    def display_attribute(attribute)
+      name = attribute.name.to_sym
+      unless @fields_descriptions[name]
+        @fields_descriptions[name] = BrainDamage::FieldDescription.new name, {}, self
+      end
+
+      @fields_descriptions[name].attribute = attribute
+      @fields_descriptions[name].display
+    end
+
+    def method_missing(method)
+      @generator.send method
     end
   end
 end
