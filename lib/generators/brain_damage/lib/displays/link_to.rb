@@ -1,8 +1,9 @@
 require 'erb'
+require_relative 'base'
 
 module BrainDamage
   module Displays
-    class LinkTo
+    class LinkTo < Base
       def initialize(options)
         @template_file = 'link_to.html.haml'
         super

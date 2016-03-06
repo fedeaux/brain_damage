@@ -1,0 +1,10 @@
+
+  .field
+  = f.label :area
+  = f.collection_select(:area, Area.all, :id, :name)
+
+
+.field
+  = f.label :owner
+  = f.text_field :owner
+

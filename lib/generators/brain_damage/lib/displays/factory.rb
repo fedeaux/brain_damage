@@ -1,5 +1,6 @@
 require_relative 'link_to'
 require_relative 'default'
+require_relative 'text'
 
 module BrainDamage
   module Displays
@@ -9,7 +10,10 @@ module BrainDamage
         when :link_to
           BrainDamage::Displays::LinkTo.new args
 
-        when :default
+        when :text
+          BrainDamage::Displays::Text.new args
+
+        else
           BrainDamage::Displays::Default.new args
 
         end

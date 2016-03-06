@@ -3,7 +3,7 @@
 @fields = {
   name: :string,
   title: :string,
-  contact_role_id: :integer,
+  contact_role: :belongs_to,
   ac_info: :string
 }
 
@@ -16,11 +16,11 @@ describe_field :contact_role_id, {
 
   input: {
     type: :simple_select,
-    options: { model: :ContactRole, display: :name, value: :id}
+    options: { model: :ContactRole, display: :name, value: :id }
   },
 
   display: {
-    type: :link_to,
+    type: :text,
     options: {
       method: :contact_role,
       display: :name,

@@ -8,15 +8,18 @@ module BrainDamage
       else
         @args = args
       end
+
+      @type = @args[:type]
     end
 
     def available_views
+      return [] if @type == :none
       common_views + specific_views
     end
 
     private
     def specific_views
-      views_on_dir @args[:type].to_s
+      views_on_dir @type.to_s
     end
 
     def common_views

@@ -1,4 +1,24 @@
 Rails.application.routes.draw do
+  resources :contact_roles
+  resources :contacts
+  resources :area_interests
+  resources :areas
+  resources :contacts
+  resources :contacts
+  resources :contact_roles
+  resources :areas
+  resources :contact_roles
+  resources :areas
+  resources :contact_roles
+  resources :areas
+  resources :contact_roles
+  resources :contacts
+  resources :areas
+  resources :area_interests
+  resources :area_interests
+  resources :area_interests
+  resources :area_interests
+  resources :areas
   resources :contacts
   resources :contacts
   resources :contacts

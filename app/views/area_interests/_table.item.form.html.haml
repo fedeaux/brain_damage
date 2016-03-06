@@ -1,0 +1,11 @@
+- area_interest = area_interest || @area_interest || AreaInterest.new
+
+= form_for area_interest, :html => { :class => 'ui form' }, :remote => true do |f|
+  = r 'fields', :area_interest => area_interest, :f => f
+
+  .actions
+    - if area_interest.persisted?
+      = f.submit 'Save', :class => 'ui primary button'
+
+    - else
+      = f.submit 'Add', :class => 'ui primary button'

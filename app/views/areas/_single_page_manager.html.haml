@@ -1,0 +1,20 @@
+- id = bd_id
+- trailing_form ||= false
+- areas ||= @areas
+
+.ui.two.column.grid.brain-damage-single-page-manager{ :id => id }
+  .column
+    %table.ui.table.brain-damage-table.brain-damage-list
+      = r "table.header"
+
+      - areas.each do |area|
+        = r "table.item", { :area => area }
+
+      - if trailing_form
+        = r "table.form", :cancel_button => true
+
+  .column
+    = r "form"
+
+  :javascript
+    new BrainDamage.SinglePageManager("##{id}");

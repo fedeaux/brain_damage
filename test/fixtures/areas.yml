@@ -2,12 +2,8 @@
 
 one:
   name: MyString
-  title: MyString
-  contact_role_id: 
-  ac_info: MyString
+  description: MyText
 
 two:
   name: MyString
-  title: MyString
-  contact_role_id: 
-  ac_info: MyString
+  description: MyText

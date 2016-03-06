@@ -1,0 +1,21 @@
+- area ||= @area
+
+%tbody.brain-damage-list-item-wrapper
+  %tr.brain-damage-list-item{ :data => { :item => { :id => area.id }}}
+    %td= area.name
+    %td= area.description
+
+    %td.brain-damage-actions-wrapper
+      .brain-damage-actions
+        = link_to area do
+          %i.eye.icon
+
+        %a
+          %i.brain-damage-edit.edit.icon
+
+        = link_to area, :method => :delete, :remote => true, :data => { :confirm => 'Are you sure?' }, :class => 'brain-damage-delete' do
+          %i.trash.icon
+
+  %tr.brain-damage-edit-list-item{ :data => { :item => { :for => area.id }}}
+    %td{ :colspan => 4 }
+      = r 'table.item.form', :area => area

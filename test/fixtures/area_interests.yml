@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  area_id: 
+  owner_id: 
+  owner_type: Owner
+
+two:
+  area_id: 
+  owner_id: 
+  owner_type: Owner
