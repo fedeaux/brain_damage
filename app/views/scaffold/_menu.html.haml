@@ -1,0 +1,4 @@
+%br
+.ui.menu
+  - Dir[__dir__+'/menu_items/*'].each do |item|
+    = r item.gsub(__dir__+'/', 'scaffold/').gsub('menu_items/_', 'menu_items/')

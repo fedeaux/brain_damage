@@ -44,6 +44,13 @@ module BrainDamage
       end
     end
 
+    def copy_scaffold_view_files
+      source_filename = "scaffold/_menu.entry.html.haml"
+      target_filename = "_#{singular_table_name}.menu.entry.html.haml"
+
+      template "views/#{source_filename}", File.join("app/views/scaffold/menu_items", target_filename)
+    end
+
     # def add_code_to_model
     #   @model_file_full_path = "app/models/#{name.downcase}.rb"
 
