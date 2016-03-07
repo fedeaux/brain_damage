@@ -43,7 +43,7 @@ describe_field :ac_info, {
   type: :internal
 }
 
-describe_field :area_interests_ids, {
+describe_field :area_interests, {
   relation: {
     type: :has_many,
     options: {
@@ -52,7 +52,7 @@ describe_field :area_interests_ids, {
   }
 }
 
-describe_field :areas_ids, {
+describe_field :areas, {
   relation: {
     type: :has_many,
     options: {
@@ -60,13 +60,13 @@ describe_field :areas_ids, {
     },
   },
 
-  # input: {
-  #   type: :checkbox_list,
-  #   options: {
-  #     model: :AreaInterest,
-  #     display: :name,
-  #     value: :id
-  #   },
-  # },
-
+  input: {
+    type: :collection_check_boxes,
+    options: {
+      name: :area_ids,
+      model: :Area,
+      display: :name,
+      value: :id
+    },
+  },
 }

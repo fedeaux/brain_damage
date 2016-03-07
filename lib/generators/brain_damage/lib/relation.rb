@@ -1,5 +1,7 @@
 module BrainDamage
   class Relation
+    attr_reader :type
+
     def initialize(description)
       @description = description
       @type = description[:type]
@@ -11,7 +13,7 @@ module BrainDamage
         when :has_many
           line = ["has_many :#{name.to_s.gsub('_ids', '')}"]
 
-          (line + (@description[:type_options] || {}).map { |name, value|
+          (line + (@description[:options] || {}).map { |name, value|
             "#{name}: :#{value}"
           }).join(', ')
         else

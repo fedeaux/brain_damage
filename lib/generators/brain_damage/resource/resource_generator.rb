@@ -65,6 +65,10 @@ module BrainDamage
 
     protected
 
+    def all_fields
+      attributes + @resource.virtual_fields_objects
+    end
+
     def attribute_white_list
       (attributes_names.map { |name| ":#{name}" } + @resource.virtual_fields_white_list).join(', ')
     end

@@ -1,6 +1,7 @@
 require_relative 'field_description'
 require_relative 'displays/factory'
 require_relative 'views_manager'
+require_relative 'virtual_field'
 
 module BrainDamage
   class Resource
@@ -83,7 +84,15 @@ module BrainDamage
 
     def virtual_fields_white_list
       @virtual_fields[:array].map { |field|
-        ":#{field} => []"
+        @fields_descriptions[field].input
+      }.reject(&:nil?).map { |input|
+        ":#{input.options[:name]} => []"
+      }
+    end
+
+    def virtual_fields_objects
+      @virtual_fields[:array].map { |name|
+        BrainDamage::VirtualField.new name
       }
     end
 
