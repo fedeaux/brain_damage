@@ -17,12 +17,9 @@ module BrainDamage
       def adjust_name
         return if @options[:name]
 
-        puts field_description.resource.fields[field_description.name]
-
         if field_description.resource.fields[field_description.name] == :belongs_to
-          @options[:name] = "#{field_description.name}_id"
+          @options[:name] = "#{field_description.name.to_s.gsub('_id', '')}_id"
         end
-        # @field_description
       end
 
       def method_missing(method)

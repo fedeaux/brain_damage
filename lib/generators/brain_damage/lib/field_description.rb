@@ -1,4 +1,5 @@
 require_relative 'inputs/factory'
+require_relative 'relation'
 
 module BrainDamage
   class FieldDescription
@@ -28,6 +29,10 @@ module BrainDamage
         set_display :default
       end
 
+      if description[:relation]
+        set_relation description[:relation]
+      end
+
       if description[:type] == :internal
         set_input :hidden
       end
@@ -47,17 +52,13 @@ module BrainDamage
       @display = BrainDamage::Displays::Factory.make type, @description[:display][:options]
     end
 
-    def add_to_model
-      return case @type
-        when :has_many
-          line = ["has_many :#{@name.to_s.gsub('_ids', '')}"]
+    def set_relation(description)
+      @relation = BrainDamage::Relation.new description
+    end
 
-          (line + (@description[:type_options] || {}).map { |name, value|
-            "#{name}: :#{value}"
-          }).join(', ')
-        else
-          nil
-      end
+    def add_to_model
+      return nil unless @relation
+      @relation.add_to_model
     end
 
     def method_missing(method)

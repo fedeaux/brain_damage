@@ -13,7 +13,9 @@ module BrainDamage
     def initialize(args)
       @plugins = {}
       @fields_descriptions = {}
-      @virtual_fields = {}
+      @virtual_fields = {
+        array: []
+      }
 
       self.fields = {}
 
@@ -45,14 +47,11 @@ module BrainDamage
       description[:options] ||= {}
       description[:options][:name] = name
 
-      unless @fields.include? name
-        if [:has_many, :has_many_through].include? description[:type]
-          @virtual_fields[:array] ||= []
-          @virtual_fields[:array] << name
-        end
-      end
-
       @fields_descriptions[name] = BrainDamage::FieldDescription.new name, description, self
+
+      unless @fields.include? name
+        @virtual_fields[:array] << name
+      end
     end
 
     def field_described?(attribute)

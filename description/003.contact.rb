@@ -44,16 +44,20 @@ describe_field :ac_info, {
 }
 
 describe_field :area_interests_ids, {
-  type: :has_many,
-  type_options: {
-    as: :owner
-  },
+  relation: {
+    type: :has_many,
+    options: {
+      as: :owner
+    },
+  }
 }
 
 describe_field :areas_ids, {
-  type: :has_many,
-  type_options: {
-    through: :area_interests,
+  relation: {
+    type: :has_many,
+    options: {
+      through: :area_interests,
+    },
   },
 
   input: {

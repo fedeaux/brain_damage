@@ -2,7 +2,7 @@ require_relative 'base'
 
 module BrainDamage
   module Inputs
-    class HiddenInput < Base
+    class Hidden < Base
       attr_accessor :attribute
 
       def initialize(options)
