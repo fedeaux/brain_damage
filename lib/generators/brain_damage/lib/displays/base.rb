@@ -16,7 +16,8 @@ module BrainDamage
       end
 
       def foreign_field?
-        ! field_description.resource.fields.keys.include? name
+        ! field_description.resource.fields.keys.include?(name) or
+          [:belongs_to, :'references{polymorphic}'].include? field_description.resource.fields[name]
       end
 
       def method_missing(method)
