@@ -7,6 +7,12 @@
   ac_info: :string
 }
 
+set_validations({
+  validations: {
+    name: { presence: true }
+  }
+})
+
 set_view_schema(
   type: :full_entity
 )

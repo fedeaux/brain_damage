@@ -2,6 +2,7 @@ require_relative 'field_description'
 require_relative 'displays/factory'
 require_relative 'views_manager'
 require_relative 'virtual_field'
+require_relative 'validations'
 
 module BrainDamage
   class Resource
@@ -10,6 +11,7 @@ module BrainDamage
     attr_accessor :generator
     attr_reader :views_manager
     attr_reader :virtual_fields
+    attr_reader :validations
 
     def initialize(args)
       @plugins = {}
@@ -23,6 +25,10 @@ module BrainDamage
       if args.is_a? File
         instance_eval args.read, args.path
       end
+    end
+
+    def set_validations(options)
+      @validations = BrainDamage::Validations.new options
     end
 
     def as_cmd_parameters
@@ -97,7 +103,12 @@ module BrainDamage
     end
 
     def add_to_model
-      @fields_descriptions.values.map(&:add_to_model).reject(&:nil?)
+      to_add = []
+      if @validations
+        to_add += @validations.add_to_model
+      end
+
+      to_add + @fields_descriptions.values.map(&:add_to_model).reject(&:nil?)
     end
 
     def method_missing(method)
