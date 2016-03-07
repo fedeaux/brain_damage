@@ -53,6 +53,7 @@ module BrainDamage
     end
 
     def set_relation(description)
+      description[:field_description] = self
       @relation = BrainDamage::Relation.new description
     end
 

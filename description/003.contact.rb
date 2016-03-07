@@ -60,13 +60,13 @@ describe_field :areas_ids, {
     },
   },
 
-  input: {
-    type: :checkbox_list,
-    options: {
-      model: :AreaInterest,
-      display: :name,
-      value: :id
-    },
-  },
+  # input: {
+  #   type: :checkbox_list,
+  #   options: {
+  #     model: :AreaInterest,
+  #     display: :name,
+  #     value: :id
+  #   },
+  # },
 
 }

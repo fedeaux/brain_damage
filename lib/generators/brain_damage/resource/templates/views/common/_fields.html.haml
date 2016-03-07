@@ -2,7 +2,7 @@
 <% field_description = @resource.field_description attribute -%>
 
 <% if field_description and field_description.input -%>
-  <%= field_description.input.html %>
+<%= field_description.input.html %>
 <% else -%>
 .field
   = f.label :<%= attribute.name %>

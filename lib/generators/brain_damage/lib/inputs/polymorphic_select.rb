@@ -21,6 +21,10 @@ module BrainDamage
       def options_for_type
         @options[:options].map{ |option| [option[:model].to_s, option[:model].to_s] }
       end
+
+      def types_options
+        @options[:options]
+      end
     end
   end
 end

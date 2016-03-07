@@ -37,8 +37,8 @@ describe_field :owner, {
     options: {
       options: [
         { model: :Contact, display: :name, value: :id },
-        { model: :Local, display: :name, value: :id },
-        { model: :User, display: :name, value: :id },
+        # { model: :Local, display: :name, value: :id },
+        # { model: :User, display: :name, value: :id },
       ]
     }
   },
