@@ -1,7 +1,9 @@
 %p#notice= notice
 
+- <%= singular_table_name %> ||= @<%= singular_table_name %>
+
 <% for attribute in attributes -%>
 %p
   %b <%= attribute.human_name %>:
-  = @<%= singular_table_name %>.<%= attribute.name %>
+  <%= @resource.display_attribute(attribute) %>
 <% end -%>

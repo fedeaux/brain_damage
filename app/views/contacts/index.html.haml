@@ -1,9 +1,0 @@
-%h1.ui.header Contacts
-
-= link_to 'New Contact', new_contact_path
-
-%table.ui.table.brain-damage-table.brain-damage-list
-  = r "table.header"
-
-  - @contacts.each do |contact|
-    = r "table.item", { :contact => contact }

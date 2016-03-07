@@ -16,6 +16,7 @@ module BrainDamage
       @name = name
       @description = description
       @resource = resource
+      @type = description[:type]
 
       if description[:input]
         set_input description[:input][:type]
@@ -44,6 +45,19 @@ module BrainDamage
       @description[:display][:options] ||= {}
       @description[:display][:options][:field_description] = self
       @display = BrainDamage::Displays::Factory.make type, @description[:display][:options]
+    end
+
+    def add_to_model
+      return case @type
+        when :has_many
+          line = ["has_many :#{@name.to_s.gsub('_ids', '')}"]
+
+          (line + (@description[:type_options] || {}).map { |name, value|
+            "#{name}: :#{value}"
+          }).join(', ')
+        else
+          nil
+      end
     end
 
     def method_missing(method)

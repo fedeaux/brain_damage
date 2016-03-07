@@ -15,6 +15,10 @@ module BrainDamage
         ERB.new(File.open("#{__dir__}/templates/#{@template_file}").read).result(binding)
       end
 
+      def foreign_field?
+        ! field_description.resource.fields.keys.include? name
+      end
+
       def method_missing(method)
         @field_description.send method
       end

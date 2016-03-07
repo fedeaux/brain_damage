@@ -5,6 +5,6 @@
   description: :text
 }
 
-set_view_schema :single_page_manager
+describe_field :area_interests_ids
 
-add_plugin :list_select, display: :name # value: :id by default
+set_view_schema :single_page_manager

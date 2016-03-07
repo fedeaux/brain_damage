@@ -51,17 +51,23 @@ module BrainDamage
       template "views/#{source_filename}", File.join("app/views/scaffold/menu_items", target_filename)
     end
 
-    # def add_code_to_model
-    #   @model_file_full_path = "app/models/#{name.downcase}.rb"
+    def add_code_to_model
+      @model_file_full_path = "app/models/#{name.downcase}.rb"
 
-    #   return unless File.exists? @model_file_full_path
+      return unless File.exists? @model_file_full_path
 
-    #   inject_into_file @model_file_full_path, after: /class .+/ do
-    #     BRAIN_DAMAGE_MODEL_HOOK_TEXT_START + BRAIN_DAMAGE_MODEL_HOOK_TEXT_END
-    #   end
-    # end
+      @resource.add_to_model.each do |stretch|
+        inject_into_file @model_file_full_path, after: /class .+/ do
+          "\n  "+stretch.strip
+        end
+      end
+    end
 
     protected
+
+    def attribute_white_list
+      (attributes_names.map { |name| ":#{name}" } + @resource.virtual_fields_white_list).join(', ')
+    end
 
     def self.get_resource_description(args)
       BrainDamage::Resource.new get_description_file_from_args(args)

@@ -8,10 +8,12 @@ module BrainDamage
     attr_accessor :fields
     attr_accessor :generator
     attr_reader :views_manager
+    attr_reader :virtual_fields
 
     def initialize(args)
       @plugins = {}
       @fields_descriptions = {}
+      @virtual_fields = {}
 
       self.fields = {}
 
@@ -42,6 +44,14 @@ module BrainDamage
     def describe_field(name, description)
       description[:options] ||= {}
       description[:options][:name] = name
+
+      unless @fields.include? name
+        if [:has_many, :has_many_through].include? description[:type]
+          @virtual_fields[:array] ||= []
+          @virtual_fields[:array] << name
+        end
+      end
+
       @fields_descriptions[name] = BrainDamage::FieldDescription.new name, description, self
     end
 
@@ -70,6 +80,16 @@ module BrainDamage
 
       @fields_descriptions[name].attribute = attribute
       @fields_descriptions[name].display
+    end
+
+    def virtual_fields_white_list
+      @virtual_fields[:array].map { |field|
+        ":#{field} => []"
+      }
+    end
+
+    def add_to_model
+      @fields_descriptions.values.map(&:add_to_model).reject(&:nil?)
     end
 
     def method_missing(method)

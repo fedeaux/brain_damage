@@ -15,42 +15,4 @@ ActiveRecord::Schema.define(version: 20160306210247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "area_interests", force: :cascade do |t|
-    t.integer  "area_id"
-    t.integer  "owner_id"
-    t.string   "owner_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "area_interests", ["area_id"], name: "index_area_interests_on_area_id", using: :btree
-  add_index "area_interests", ["owner_type", "owner_id"], name: "index_area_interests_on_owner_type_and_owner_id", using: :btree
-
-  create_table "areas", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "contact_roles", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "contacts", force: :cascade do |t|
-    t.string   "name"
-    t.string   "title"
-    t.integer  "contact_role_id"
-    t.string   "ac_info"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  add_index "contacts", ["contact_role_id"], name: "index_contacts_on_contact_role_id", using: :btree
-
-  add_foreign_key "area_interests", "areas"
-  add_foreign_key "contacts", "contact_roles"
 end

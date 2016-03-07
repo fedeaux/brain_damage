@@ -11,6 +11,12 @@ set_view_schema(
   type: :full_entity
 )
 
+describe_field :name, {
+  display: {
+    type: :link_to
+  }
+}
+
 describe_field :contact_role, {
   type: :belongs_to,
 
@@ -35,4 +41,28 @@ describe_field :contact_role, {
 
 describe_field :ac_info, {
   type: :internal
+}
+
+describe_field :area_interests_ids, {
+  type: :has_many,
+  type_options: {
+    as: :owner
+  },
+}
+
+describe_field :areas_ids, {
+  type: :has_many,
+  type_options: {
+    through: :area_interests,
+  },
+
+  input: {
+    type: :checkbox_list,
+    options: {
+      model: :AreaInterest,
+      display: :name,
+      value: :id
+    },
+  },
+
 }
