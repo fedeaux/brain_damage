@@ -66,7 +66,7 @@ module BrainDamage
     protected
 
     def all_fields
-      attributes + @resource.virtual_fields_objects
+      attributes + @resource.virtual_fields
     end
 
     def attribute_white_list

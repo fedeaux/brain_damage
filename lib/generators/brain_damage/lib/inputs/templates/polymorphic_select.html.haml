@@ -1,8 +1,13 @@
-.field
-  = f.label :<%= attribute.name %>
-  = f.select(:<%= type_select_name %>, <%= options_for_type %>)
+- if !defined? nested_on or nested_on == nil
+  .field
+    = f.label :<%= attribute.name %>
+    = f.select(:<%= type_select_name %>, <%= options_for_type %>)
 
-  .brain-damage-polymorphic-select
-  <% types_options.each do |options| %>
-    = f.collection_select(:<%= object_select_name %>, <%= options[:model] %>.all, :<%= options[:value] %>, :<%= options[:display] %>)
-  <% end %>
+    .brain-damage-polymorphic-select
+    <% types_options.each do |options| -%>
+      = f.collection_select(:<%= object_select_name %>, <%= options[:model] %>.all, :<%= options[:value] %>, :<%= options[:display] %>)
+    <% end %>
+
+- elsif nested_on == :<%= attribute.name %> and <%= singular_table_name %>.<%= attribute.name %>
+  = f.hidden_field(:<%= type_select_name %>, value: <%= singular_table_name %>.<%= type_select_name %> )
+  = f.hidden_field(:<%= object_select_name %>, value: <%= singular_table_name %>.<%= object_select_name %> )

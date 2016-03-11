@@ -3,9 +3,10 @@ require_relative 'relation'
 
 module BrainDamage
   class FieldDescription
-    attr_reader :name
     attr_reader :description
     attr_reader :input
+    attr_reader :name
+    attr_reader :relation
     attr_reader :resource
     attr_accessor :attribute
 

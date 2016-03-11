@@ -58,6 +58,20 @@ describe_field :area_interests, {
   }
 }
 
+describe_field :links, {
+  relation: {
+    type: :has_many,
+    options: {
+      as: :owner
+    },
+  },
+
+  input: {
+    type: :nested_form,
+    white_list: [ :url, :name ]
+  }
+}
+
 describe_field :areas, {
   relation: {
     type: :has_many,

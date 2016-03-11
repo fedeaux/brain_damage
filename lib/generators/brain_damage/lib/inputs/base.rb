@@ -6,6 +6,7 @@ module BrainDamage
 
       def initialize(options)
         @options = options
+
         @field_description = options[:field_description]
         adjust_name
       end
@@ -19,6 +20,8 @@ module BrainDamage
 
         if field_description.resource.fields[field_description.name] == :belongs_to
           @options[:name] = "#{field_description.name.to_s.gsub('_id', '')}_id"
+        else
+          @options[:name] = field_description.name
         end
       end
 

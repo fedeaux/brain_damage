@@ -1,0 +1,15 @@
+- prefix = "#{prefix}[<%= plural_table_name %>_attributes][]"
+
+= fields_for <%= singular_table_name %> do |f|
+<% for field in all_fields -%>
+<% field_description = @resource.field_description field -%>
+
+<% if field_description and field_description.input -%>
+<%= field_description.input.html.gsub(/^/, "  ") -%>
+<% elsif field.field_type -%>
+  .field
+    = f.label :<%= field.name %>
+    = f.<%= field.field_type %> :<%= field.name %>, :name => "#{prefix}[<%= field.name %>]"
+
+<% end -%>
+<% end -%>

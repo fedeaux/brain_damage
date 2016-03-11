@@ -10,11 +10,12 @@ module BrainDamage
       end
 
       @type = @args[:type]
+      @args[:special_views] ||= []
     end
 
     def available_views
       return [] if @type == :none
-      common_views + specific_views
+      common_views + specific_views + special_views
     end
 
     private
@@ -24,6 +25,10 @@ module BrainDamage
 
     def common_views
       views_on_dir 'common'
+    end
+
+    def special_views
+      @args[:special_views].map { |special_view| "special/#{special_view}" }
     end
 
     def views_on_dir(dir)

@@ -16,9 +16,7 @@ module BrainDamage
     def initialize(args)
       @plugins = {}
       @fields_descriptions = {}
-      @virtual_fields = {
-        array: []
-      }
+      @virtual_fields = []
 
       self.fields = {}
 
@@ -57,7 +55,7 @@ module BrainDamage
       @fields_descriptions[name] = BrainDamage::FieldDescription.new name, description, self
 
       unless @fields.include? name
-        @virtual_fields[:array] << name
+        @virtual_fields << BrainDamage::VirtualField.new(name, description)
       end
     end
 
@@ -89,17 +87,9 @@ module BrainDamage
     end
 
     def virtual_fields_white_list
-      @virtual_fields[:array].map { |field|
-        @fields_descriptions[field].input
-      }.reject(&:nil?).map { |input|
-        ":#{input.options[:name]} => []"
-      }
-    end
-
-    def virtual_fields_objects
-      @virtual_fields[:array].map { |name|
-        BrainDamage::VirtualField.new name
-      }
+      @virtual_fields.map { |virtual_field|
+        virtual_field.white_list
+      }.reject(&:nil?)
     end
 
     def add_to_model

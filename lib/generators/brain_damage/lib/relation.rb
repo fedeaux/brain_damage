@@ -24,5 +24,9 @@ module BrainDamage
     def method_missing(method)
       @field_description.send method
     end
+
+    def nested_on
+      @description[:options][:as]
+    end
   end
 end
