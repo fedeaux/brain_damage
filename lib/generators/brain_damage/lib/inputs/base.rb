@@ -2,10 +2,12 @@ module BrainDamage
   module Inputs
     class Base
       attr_reader :options
+      attr_reader :type
       attr_reader :field_description
 
       def initialize(options)
         @options = options
+        @type = self.class.to_s.split('::').last.underscore.to_sym
 
         @field_description = options[:field_description]
         adjust_name

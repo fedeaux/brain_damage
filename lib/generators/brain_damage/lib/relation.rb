@@ -26,9 +26,8 @@ module BrainDamage
     end
 
     def accepts_nested_fields_for_line
-      case @type
-        when :has_many
-          "accepts_nested_fields_for :#{name}"
+      if [:has_many, :has_one].include? @type and @field_description.input and @field_description.input.type == :nested_form
+        "accepts_nested_fields_for :#{name}"
       else
         nil
       end
