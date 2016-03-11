@@ -4,7 +4,7 @@
     = f.select(:<%= type_select_name %>, <%= options_for_type %>)
 
     .brain-damage-polymorphic-select
-    <% types_options.each do |options| -%>
+    <% types_options.each do |options| %>
       = f.collection_select(:<%= object_select_name %>, <%= options[:model] %>.all, :<%= options[:value] %>, :<%= options[:display] %>)
     <% end %>
 
