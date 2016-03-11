@@ -56,10 +56,20 @@ module BrainDamage
 
       return unless File.exists? @model_file_full_path
 
-      @resource.add_to_model.each do |stretch|
-        inject_into_file @model_file_full_path, after: /class .+/ do
-          "\n  "+stretch.strip
-        end
+      file_contents = File.readlines @model_file_full_path
+      reorder_lines = file_contents.select{ |line| line.starts_with? '  ' }
+
+      File.open(@model_file_full_path, 'w+') do |f|
+        f.write file_contents.reject{ |line| line.starts_with? '  ' }.join "\n"
+      end
+
+      @resource.add_to_model(reorder_lines).each do |stretch|
+        line = if stretch =~ /^\s+$/
+            then stretch
+            else "\n  "+stretch.strip
+          end
+
+        inject_into_file @model_file_full_path, line, after: /class .+/, force: true
       end
     end
 

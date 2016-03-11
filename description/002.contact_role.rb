@@ -8,8 +8,8 @@ set_view_schema({
   type: :single_page_manager
 })
 
-describe_field :contact, {
+describe_field :contacts, {
   relation: {
-    type: :has_many,
+    type: :has_many
   }
 }

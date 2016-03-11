@@ -92,17 +92,55 @@ module BrainDamage
       }.reject(&:nil?)
     end
 
-    def add_to_model
-      to_add = []
+    def add_to_model(reorder_lines = [])
+      to_add = reorder_lines
       if @validations
         to_add += @validations.add_to_model
       end
 
-      to_add + @fields_descriptions.values.map(&:add_to_model).reject(&:nil?)
+      prettify_model_lines (to_add + @fields_descriptions.values.map(&:add_to_model).flatten).reject(&:nil?)
     end
 
     def method_missing(method)
       @generator.send method
+    end
+
+    private
+    def prettify_model_lines(lines)
+      return [] unless lines.any?
+
+      pairs = lines.map { |line|
+        i = case line
+            when /validates/
+              0
+
+            when /accepts/
+              2
+
+            else
+              1
+            end
+
+        [ line, i]
+      }.sort { |pair_a, pair_b|
+        natural = pair_b[1] <=> pair_a[1]
+        if natural != 0 then natural else pair_b[0] <=> pair_a[0] end
+
+      }
+
+      current_i = pairs.first[1]
+
+      lines = []
+      pairs.each do |pair|
+        if pair[1] != current_i
+          lines << "\n"
+          current_i = pair[1]
+        end
+
+        lines << pair[0]
+      end
+
+      lines
     end
   end
 end

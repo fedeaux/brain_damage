@@ -9,7 +9,11 @@ module BrainDamage
     end
 
     def add_to_model
-      return case @type
+      return [relation_line, accepts_nested_fields_for_line]
+    end
+
+    def relation_line
+      case @type
         when :has_many
           line = ["has_many :#{name.to_s.gsub('_ids', '')}"]
 
@@ -19,6 +23,15 @@ module BrainDamage
         else
           nil
         end
+    end
+
+    def accepts_nested_fields_for_line
+      case @type
+        when :has_many
+          "accepts_nested_fields_for :#{name}"
+      else
+        nil
+      end
     end
 
     def method_missing(method)
