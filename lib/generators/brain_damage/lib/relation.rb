@@ -9,7 +9,7 @@ module BrainDamage
     end
 
     def add_to_model
-      return [relation_line, accepts_nested_fields_for_line]
+      return [relation_line, accepts_nested_attributes_for_line]
     end
 
     def relation_line
@@ -25,9 +25,9 @@ module BrainDamage
         end
     end
 
-    def accepts_nested_fields_for_line
+    def accepts_nested_attributes_for_line
       if [:has_many, :has_one].include? @type and @field_description.input and @field_description.input.type == :nested_form
-        "accepts_nested_fields_for :#{name}"
+        "accepts_nested_attributes_for :#{name}"
       else
         nil
       end
