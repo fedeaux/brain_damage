@@ -52,7 +52,7 @@ module BrainDamage
     end
 
     def add_code_to_model
-      @model_file_full_path = "app/models/#{name.downcase}.rb"
+      @model_file_full_path = "app/models/#{name.underscore}.rb"
 
       return unless File.exists? @model_file_full_path
 
