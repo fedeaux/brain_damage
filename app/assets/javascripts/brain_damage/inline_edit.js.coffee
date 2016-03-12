@@ -1,11 +1,12 @@
 @BrainDamage ?= {}
 
 class @BrainDamage.InlineEdit
-  constructor: (wrapper_selector, display_selector, edit_selector, partial_to_show = null) ->
+  constructor: (wrapper_selector, display_selector, edit_selector, partial_to_show = null, edit_complete = null) ->
     @wrapper = $ wrapper_selector
     @display_selector = display_selector
     @edit_selector = edit_selector
     @partial_to_show = partial_to_show
+    @edit_complete = edit_complete
 
     @install()
 
@@ -32,5 +33,9 @@ class @BrainDamage.InlineEdit
     @display.fadeIn()
 
   editComplete: (item) =>
-    @install()
-    @hideForm()
+    if @edit_complete
+      @edit_complete item
+
+    else
+      @install()
+      @hideForm()
