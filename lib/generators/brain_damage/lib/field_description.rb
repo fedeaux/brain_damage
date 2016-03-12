@@ -9,6 +9,7 @@ module BrainDamage
     attr_reader :relation
     attr_reader :resource
     attr_accessor :attribute
+    attr_accessor :virtual
 
     def display
       @display.html
@@ -19,6 +20,7 @@ module BrainDamage
       @description = description
       @resource = resource
       @type = description[:type]
+      @virtual = description[:virtual]
 
       if description[:input]
         set_input description[:input][:type]
@@ -26,8 +28,13 @@ module BrainDamage
 
       if description[:display]
         set_display description[:display][:type]
+
       else
-        set_display :default
+        if virtual?
+          set_display :unexistent
+        else
+          set_display :default
+        end
       end
 
       if description[:relation]
@@ -37,6 +44,10 @@ module BrainDamage
       if description[:type] == :internal
         set_input :hidden
       end
+    end
+
+    def virtual?
+      @virtual
     end
 
     def set_input(type)

@@ -11,6 +11,10 @@ module BrainDamage
       false
     end
 
+    def human_name
+      @name.to_s.humanize
+    end
+
     def white_list
       if @description[:relation]
         if @description[:relation][:type] == :has_many

@@ -31,7 +31,8 @@ class <%= controller_class_name %>Controller < ApplicationController
     if @<%= orm_instance.save %>
       respond_to do |format|
         format.json {
-          render :json => { :html => render_to_string(:partial => 'table.item', :formats => [:html]) }
+          partial = params[:partial_to_show] ? params[:partial_to_show] : 'table.item'
+          render :json => { :html => render_to_string(:partial => partial, :formats => [:html]) }
         }
 
         format.html {
@@ -49,7 +50,8 @@ class <%= controller_class_name %>Controller < ApplicationController
     if @<%= orm_instance.update("#{singular_table_name}_params") %>
       respond_to do |format|
         format.json {
-          render :json => { :html => render_to_string(:partial => 'table.item', :formats => [:html]) }
+          partial = params[:partial_to_show] ? params[:partial_to_show] : 'table.item'
+          render :json => { :html => render_to_string(:partial => partial, :formats => [:html]) }
         }
 
         format.html {

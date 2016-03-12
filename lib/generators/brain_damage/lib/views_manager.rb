@@ -28,7 +28,11 @@ module BrainDamage
     end
 
     def special_views
-      @args[:special_views].map { |special_view| "special/#{special_view}" }
+      views_on_dir('special').select { |file|
+        @args[:special_views].select { |special_view_name|
+          file.include? special_view_name
+        }.any?
+      }
     end
 
     def views_on_dir(dir)

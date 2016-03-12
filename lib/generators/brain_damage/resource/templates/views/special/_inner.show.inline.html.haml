@@ -1,0 +1,27 @@
+- <%= singular_table_name %> ||= @<%= singular_table_name %>
+
+.brain-damage-show-inline-display
+  .brain-damage-actions-wrapper
+    .brain-damage-actions
+      = link_to <%= singular_table_name %> do
+        %i.eye.icon
+
+      %a
+        %i.brain-damage-edit.edit.icon
+
+      = link_to <%= singular_table_name %>, :method => :delete, :remote => true, :data => { :confirm => 'Are you sure?' }, :class => 'brain-damage-delete' do
+        %i.trash.icon
+
+<% for field in all_fields -%>
+<% display_html = @resource.display_attribute(field) -%>
+<% if display_html -%>
+  %b <%= field.human_name %>:
+<%= display_html.gsub(/^/, ' ' * 2) %>
+  %br
+<% end -%>
+<% end -%>
+
+.brain-damage-show-inline-form
+  = r "<%= plural_table_name %>/form", <%= singular_table_name %>: <%= singular_table_name %>, cancel_button: true
+
+.ui.divider

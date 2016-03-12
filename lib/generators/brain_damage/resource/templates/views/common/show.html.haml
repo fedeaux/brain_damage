@@ -2,8 +2,11 @@
 
 - <%= singular_table_name %> ||= @<%= singular_table_name %>
 
-<% for attribute in attributes -%>
+<% for field in all_fields -%>
+<% display_html = @resource.display_attribute(field) -%>
+<% if display_html -%>
 %p
-  %b <%= attribute.human_name %>:
-  <%= @resource.display_attribute(attribute) %>
+  %b <%= field.human_name %>:
+<%= display_html.gsub(/^/, ' ' * 2) %>
+<% end -%>
 <% end -%>

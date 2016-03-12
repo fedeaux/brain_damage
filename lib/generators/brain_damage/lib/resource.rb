@@ -51,10 +51,11 @@ module BrainDamage
     def describe_field(name, description)
       description[:options] ||= {}
       description[:options][:name] = name
+      description[:virtual] = !@fields.include?(name)
 
       @fields_descriptions[name] = BrainDamage::FieldDescription.new name, description, self
 
-      unless @fields.include? name
+      if @fields_descriptions[name].virtual?
         @virtual_fields << BrainDamage::VirtualField.new(name, description)
       end
     end
@@ -78,6 +79,7 @@ module BrainDamage
 
     def display_attribute(attribute)
       name = attribute.name.to_sym
+
       unless @fields_descriptions[name]
         @fields_descriptions[name] = BrainDamage::FieldDescription.new name, {}, self
       end

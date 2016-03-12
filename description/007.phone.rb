@@ -5,7 +5,7 @@
   ddd: :string,
   prefix: :string,
   suffix: :string,
-  ramal: :ddd,
+  ramal: :string,
   name: :string,
   owner: :'references{polymorphic}'
 }

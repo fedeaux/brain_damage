@@ -11,13 +11,13 @@ class @BrainDamage.AjaxForm
 
     @form.addClass 'dimmable'
     @dimmer = $ '<div class="ui dimmer">
-                   <div class="ui text loader"> Aguarde </div>
+                   <div class="ui text loader"> Wait </div>
                  </div>'
 
     @form.append @dimmer
 
   clearForm: =>
-    $(@form)[0].reset()
+    $('form', @form)[0].reset()
 
   blockForm: =>
     @dimmer.dimmer('show')
@@ -45,6 +45,9 @@ class @BrainDamage.AjaxForm
 
     else if @strategy == 'after'
       @target.after item
+
+    else if @strategy == 'replace'
+      @target.html item
 
     item.fadeIn()
     @callbacks.complete(item) if @callbacks.complete

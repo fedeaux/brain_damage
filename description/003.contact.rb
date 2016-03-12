@@ -69,6 +69,14 @@ describe_field :links, {
   input: {
     type: :nested_form,
     white_list: [ :url, :name ]
+  },
+
+  display: {
+    type: :foreign_inline,
+    options: {
+      deletable: true,
+      editable: true
+    }
   }
 }
 

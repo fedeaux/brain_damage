@@ -6,7 +6,7 @@
   owner: :'references{polymorphic}'
 }
 
-set_view_schema(:type => :single_page_manager, :special_views => ['_nested.fields'])
+set_view_schema(:type => :single_page_manager, :special_views => ['nested.fields', 'show.inline'])
 
 describe_field :owner, {
   relation: {

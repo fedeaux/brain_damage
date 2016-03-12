@@ -2,7 +2,7 @@
 - <%= singular_table_name %> ||= @<%= singular_table_name %> || <%= name %>.new
 
 = form_for <%= singular_table_name %>, :html => { :class => 'ui form' } do |f|
-  = r 'fields', :<%= singular_table_name %> => <%= singular_table_name %>, :f => f
+  = r '<%= plural_table_name %>/fields', :<%= singular_table_name %> => <%= singular_table_name %>, :f => f
 
   .actions
     = f.submit 'Save', :class => 'ui primary button'
