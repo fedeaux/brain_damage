@@ -1,31 +1,37 @@
 @BrainDamage ?= {}
 
 class @BrainDamage.AjaxForm
-  constructor: (form_selector, target_selector, @strategy = 'prepend', @callbacks = {}) ->
-    @form = $ form_selector
-    @target = $ target_selector
-    @form.on 'ajax:before', @blockForm
-    @form.on 'ajax:complete', @unblockForm
-    @form.on 'ajax:complete', @addToTarget
-    @form.on 'ajax:complete', @clearForm
+  constructor: (wrapper_selector, @args = {}) ->
+    @wrapper = $ wrapper_selector
 
-    @form.addClass 'dimmable'
+    @form = $ 'form', @wrapper
+
+    @strategy = @args.strategy or 'prepend'
+    @callbacks = @args.callbacks or {}
+    @target = if @args.target_selector then $(@args.target_selector) else @form
+
+    @wrapper.on 'ajax:before', @block_wrapper
+    @wrapper.on 'ajax:complete', @unblock_wrapper
+    @wrapper.on 'ajax:complete', @add_to_target
+    @wrapper.on 'ajax:complete', @clear_wrapper
+
+    @wrapper.addClass 'dimmable'
     @dimmer = $ '<div class="ui dimmer">
                    <div class="ui text loader"> Wait </div>
                  </div>'
 
     @form.append @dimmer
 
-  clearForm: =>
-    $('form', @form)[0].reset()
+  clear_form: =>
+    @form[0].reset()
 
-  blockForm: =>
+  block_wrapper: =>
     @dimmer.dimmer('show')
 
-  unblockForm: =>
+  unblock_wrapper: =>
     @dimmer.dimmer('hide')
 
-  addToTarget: (event, data) =>
+  add_to_target: (event, data) =>
     try
       item = $ data.responseJSON.html
 
@@ -43,6 +49,9 @@ class @BrainDamage.AjaxForm
     else if @strategy == 'append'
       @target.append item
 
+    else if @strategy == 'before wrapper'
+      @wrapper.before item
+
     else if @strategy == 'after'
       @target.after item
 
@@ -52,10 +61,10 @@ class @BrainDamage.AjaxForm
     item.fadeIn()
     @callbacks.complete(item) if @callbacks.complete
 
-  prependToList: (item) ->
+  prepend_to_list: (item) ->
     # target is interpreted as a list
 
-  replaceOriginal: (item) ->
+  replace_original: (item) ->
     # target is interpreted as the original item
     @target.before(item)
     @target.remove()

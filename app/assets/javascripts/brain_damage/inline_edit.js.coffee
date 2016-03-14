@@ -19,7 +19,11 @@ class @BrainDamage.InlineEdit
     $('.brain-damage-cancel', @wrapper).click @hideForm
 
     new BrainDamage.AjaxDelete @wrapper
-    new BrainDamage.AjaxForm @edit, @wrapper, 'replace', complete: @editComplete
+    new BrainDamage.AjaxForm @edit,
+      target_selector: @wrapper
+      strategy: 'replace'
+      callbacks:
+        complete: @editComplete
 
     if @partial_to_show
       @form.append "<input type='hidden' name='partial_to_show' value='#{@partial_to_show}' />"
