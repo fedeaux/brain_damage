@@ -19,4 +19,4 @@
 
   %tr.brain-damage-edit-list-item{ :data => { :item => { :for => <%= singular_table_name %>.id }}}
     %td{ :colspan => <%= attributes.length + 2 -%> }
-      = r 'table.item.form', :<%= singular_table_name %> => <%= singular_table_name %>
+      = r '<%= plural_table_name %>/table.item.form', :<%= singular_table_name %> => <%= singular_table_name %>

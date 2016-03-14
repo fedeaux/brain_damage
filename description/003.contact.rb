@@ -72,7 +72,7 @@ describe_field :links, {
   },
 
   display: {
-    type: :foreign_inline,
+    type: :inline_single_table_manager,
     options: {
       deletable: true,
       editable: true

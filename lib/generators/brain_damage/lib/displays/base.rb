@@ -9,6 +9,7 @@ module BrainDamage
       def initialize(options)
         @options = options
         @field_description = options[:field_description]
+        @template_file = "#{self.class.to_s.split('::').last.underscore}.html.haml" unless @template_file
       end
 
       def html

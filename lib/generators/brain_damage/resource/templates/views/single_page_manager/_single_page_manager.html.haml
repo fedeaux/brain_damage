@@ -4,16 +4,9 @@
 
 .ui.two.column.grid.brain-damage-single-page-manager{ :id => id }
   .column
-    %table.ui.table.brain-damage-table.brain-damage-list
-      = r "table.header"
+    = r 'table', <%= plural_table_name %>: <%= plural_table_name %>, trailing_form: trailing_form, ignore_single_page_manager_script: true
 
-      - <%= plural_table_name %>.each do |<%= singular_table_name %>|
-        = r "table.item", { :<%= singular_table_name %> => <%= singular_table_name %> }
-
-      - if trailing_form
-        = r "table.form", :cancel_button => true
-
-  .column
+  .column.brain-damage-add-form-wrapper
     = r "form"
 
   :javascript

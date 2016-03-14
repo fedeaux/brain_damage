@@ -89,13 +89,14 @@ module BrainDamage
 
     def self.get_description_file_from_args(args)
       description = args.select{ |arg|
-        arg.starts_with? '--description'
+        arg.starts_with? '--description' or arg.starts_with? '-d'
       }.first
 
       return nil unless description
 
-      description_file = description.split('=').last.strip.gsub('.rb', '')+'.rb'
-      File.open Rails.root+'description/'+description_file
+      description_file_glob = '*.'+(description.split('=').last.strip.gsub('.rb', '')+'.rb')
+      description_file_name = Dir[Rails.root+'description/'+description_file_glob].first
+      File.open description_file_name if description_file_name
     end
 
     def handler

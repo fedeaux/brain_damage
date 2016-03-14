@@ -16,8 +16,6 @@ class @BrainDamage.NestedFormControls
 
     @checkSubmitVisibility()
 
-    console.log @addButton
-
     @addButton.on 'click', @addLine
     @container.on 'click', removeButtonSelector, @removeThisLine
 
@@ -46,7 +44,6 @@ class @BrainDamage.NestedFormControls
     @addLine() if @context == 'new'
 
   addLine: =>
-    console.log 'nhoi :3'
     return if @numberOfLines() > 0 and @context == 'add'
 
     @i = (new Date).getTime()

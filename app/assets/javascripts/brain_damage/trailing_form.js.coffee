@@ -1,6 +1,6 @@
 @BrainDamage ?= {}
 
-class @BrainDamage.TrailingAjaxForm
+class @BrainDamage.TrailingForm
   constructor: (wrapper_selector, partial_to_show, hideable_args = {}) ->
     hideable_args.wrapper_selector = wrapper_selector unless hideable_args.wrapper_selector?
 

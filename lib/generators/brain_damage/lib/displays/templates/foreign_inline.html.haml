@@ -1,3 +1,5 @@
 .ui.segment
   - <%= singular_table_name %>.<%= name %>.each do |item|
     = r "<%= foreign_plural_table_name %>/show.inline", <%= foreign_singular_table_name %>: item
+
+  = r "<%= foreign_plural_table_name %>/trailing_form.show.inline", <%= foreign_singular_table_name %>_prototype: Link.new

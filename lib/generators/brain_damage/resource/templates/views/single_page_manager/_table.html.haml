@@ -1,0 +1,18 @@
+- id = "brain-damage-single-page-manager-table#{bd_id}"
+
+- trailing_form ||= false
+- <%= plural_table_name %> ||= @<%= plural_table_name %>
+- ignore_single_page_manager_script ||= false
+
+%table.ui.table.brain-damage-table.brain-damage-list{ id: id }
+  = r "<%= plural_table_name %>/table.header"
+
+  - <%= plural_table_name %>.each do |<%= singular_table_name %>|
+    = r "<%= plural_table_name %>/table.item", <%= singular_table_name %>: <%= singular_table_name %>
+
+  - if trailing_form
+    = r "<%= plural_table_name %>/table.form", cancel_button: true
+
+  - unless ignore_single_page_manager_script
+    :javascript
+      new BrainDamage.SinglePageManager("##{id}");

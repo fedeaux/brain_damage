@@ -3,7 +3,12 @@
 class @BrainDamage.SinglePageManager
   constructor: (wrapper_selector) ->
     @wrapper = $ wrapper_selector
-    @list = $ '.brain-damage-list', @wrapper
+
+    if @wrapper.is '.brain-damage-list'
+      @list = @wrapper
+    else
+      @list = $ '.brain-damage-list', @wrapper
+
     @forms_wrappers = $ '.brain-damage-add-form-wrapper', @wrapper
 
     $('.brain-damage-list-item-wrapper', @list).each @iterate_install

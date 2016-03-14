@@ -1,13 +1,13 @@
-- id = bd_id
+- id = "single-page-manager-table-form#{bd_id}"
 - <%= singular_table_name %> ||= @<%= singular_table_name %>
 
 %tbody
   %tr{:id => id}
-    %td.brain-damage-trigger{:colspan => 99}
-      .ui.basic.small.button.brain-damage-show Adicionar
+    %td.brain-damage-show{:colspan => 99}
+      .ui.basic.small.button.brain-damage-show Add
 
-    %td.brain-damage-hidden-form{:colspan => 99, :style => 'display: none'}
-      = r 'form', :cancel_button => true, :<%= singular_table_name %> => <%= singular_table_name %>
+    %td.brain-damage-hideable-content.brain-damage-add-form-wrapper{:colspan => 99, :style => 'display: none'}
+      = r '<%= plural_table_name %>/form', :cancel_button => true, :<%= singular_table_name %> => <%= singular_table_name %>
 
   :javascript
-    new BrainDamage.TrailingAjaxForm("##{id}")
+    new BrainDamage.TrailingForm("##{id}")

@@ -3,5 +3,5 @@
 .brain-damage-show-inline-wrapper{ id: id }
   = r "<%= plural_table_name %>/inner.show.inline", <%= singular_table_name %>: <%= singular_table_name %>, cancel_button: true
 
-:coffeescript
-  new BrainDamage.InlineEdit "##{id}", ".brain-damage-show-inline-display", ".brain-damage-show-inline-form", "inner.show.inline"
+  :coffeescript
+    new BrainDamage.InlineEdit "##{id}", ".brain-damage-show-inline-display", ".brain-damage-show-inline-form", "inner.show.inline"
