@@ -20,7 +20,7 @@ class @BrainDamage.InlineEdit
 
     new BrainDamage.AjaxDelete @wrapper
     new BrainDamage.AjaxForm @edit,
-      target_selector: @wrapper
+      target: @wrapper
       strategy: 'replace'
       callbacks:
         complete: @editComplete

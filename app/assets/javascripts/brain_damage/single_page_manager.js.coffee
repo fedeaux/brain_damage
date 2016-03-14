@@ -4,13 +4,19 @@ class @BrainDamage.SinglePageManager
   constructor: (wrapper_selector) ->
     @wrapper = $ wrapper_selector
     @list = $ '.brain-damage-list', @wrapper
-    @form = $ '[id^=new]', @wrapper
+    @forms_wrappers = $ '.brain-damage-add-form-wrapper', @wrapper
 
-    $('.brain-damage-list-item-wrapper', @list).each @iterateInstall
-    new BrainDamage.AjaxForm @form, $('thead', @list), 'after', complete: @installListItem
+    $('.brain-damage-list-item-wrapper', @list).each @iterate_install
 
-  iterateInstall: (i, _item_wrapper) =>
-    @installListItem _item_wrapper
+    @forms_wrappers.each (i, _form_wrapper) =>
+      new BrainDamage.AjaxForm $(_form_wrapper),
+        target: $ 'thead', @list
+        strategy: 'after'
+        callbacks:
+          complete: @install_list_item
 
-  installListItem: (item_wrapper) =>
+  iterate_install: (i, _item_wrapper) =>
+    @install_list_item _item_wrapper
+
+  install_list_item: (item_wrapper) =>
     new BrainDamage.ListItem item_wrapper

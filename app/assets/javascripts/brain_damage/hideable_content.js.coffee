@@ -4,8 +4,8 @@ class @BrainDamage.HideableContent
   constructor: (wrapper_selector, @args = {}) ->
     @args = $.extend @args,
       show_selector: '.brain-damage-show',
-      hideable_selector: '.brain-damage-hideable-content',
       hide_selector: '.brain-damage-cancel',
+      hideable_selector: '.brain-damage-hideable-content',
 
     @wrapper = $ wrapper_selector
 

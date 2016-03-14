@@ -8,12 +8,20 @@ class @BrainDamage.AjaxForm
 
     @strategy = @args.strategy or 'prepend'
     @callbacks = @args.callbacks or {}
-    @target = if @args.target_selector then $(@args.target_selector) else @form
+
+    if @args.target
+      @target = @args.target
+
+    else if @args.target_selector
+      @target = $ @args.target_selector
+
+    else
+      @target = @wrapper
 
     @wrapper.on 'ajax:before', @block_wrapper
     @wrapper.on 'ajax:complete', @unblock_wrapper
     @wrapper.on 'ajax:complete', @add_to_target
-    @wrapper.on 'ajax:complete', @clear_wrapper
+    @wrapper.on 'ajax:complete', @clear_form
 
     @wrapper.addClass 'dimmable'
     @dimmer = $ '<div class="ui dimmer">
@@ -26,10 +34,10 @@ class @BrainDamage.AjaxForm
     @form[0].reset()
 
   block_wrapper: =>
-    @dimmer.dimmer('show')
+    @dimmer.dimmer 'show'
 
   unblock_wrapper: =>
-    @dimmer.dimmer('hide')
+    @dimmer.dimmer 'hide'
 
   add_to_target: (event, data) =>
     try
@@ -56,16 +64,10 @@ class @BrainDamage.AjaxForm
       @target.after item
 
     else if @strategy == 'replace'
-      @target.html item
+      @target.html item.html()
 
     item.fadeIn()
     @callbacks.complete(item) if @callbacks.complete
 
   prepend_to_list: (item) ->
     # target is interpreted as a list
-
-  replace_original: (item) ->
-    # target is interpreted as the original item
-    @target.before(item)
-    @target.remove()
-    @form.remove()
