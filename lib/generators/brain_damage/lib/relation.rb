@@ -37,8 +37,12 @@ module BrainDamage
       @field_description.send method
     end
 
+    def resource_name_according_to_foreign
+      @description[:options][:as] or singular_table_name
+    end
+
     def nested_on
-      @description[:options][:as]
+      resource_name_according_to_foreign
     end
   end
 end

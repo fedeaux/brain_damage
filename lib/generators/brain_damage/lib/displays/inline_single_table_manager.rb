@@ -25,6 +25,14 @@ module BrainDamage
       def foreign_model_name
         foreign_singular_table_name.camelcase.capitalize
       end
+
+      def resource_name_according_to_foreign
+        if field_description.relation
+          field_description.relation.resource_name_according_to_foreign
+        else
+          singular_table_name
+        end
+      end
     end
   end
 end

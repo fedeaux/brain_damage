@@ -1,11 +1,14 @@
 - <%= singular_table_name %> = <%= singular_table_name %> || @<%= singular_table_name %> || <%= name %>.new
+- nested_on ||= nil
 
-= form_for <%= singular_table_name %>, :html => { :class => 'ui form' }, :remote => true do |f|
-  = r '<%= plural_table_name %>/fields', :<%= singular_table_name %> => <%= singular_table_name %>, :f => f
+= form_for <%= singular_table_name %>, html: { class: 'ui form' }, remote: true do |f|
+  = r '<%= plural_table_name %>/fields', <%= singular_table_name %>: <%= singular_table_name %>, nested_on: nested_on, f: f
 
   .actions
     - if <%= singular_table_name %>.persisted?
-      = f.submit 'Save', :class => 'ui primary button'
+      = f.submit 'Save', class: 'ui primary button'
 
     - else
-      = f.submit 'Add', :class => 'ui primary button'
+      = f.submit 'Add', class: 'ui primary button'
+
+    .ui.basic.button.brain-damage-cancel Cancel

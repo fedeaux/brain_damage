@@ -1,9 +1,11 @@
 - <%= singular_table_name %> ||= @<%= singular_table_name %>
+- nested_on ||= nil
 
 %tbody.brain-damage-list-item-wrapper
-  %tr.brain-damage-list-item{ :data => { :item => { :id => <%= singular_table_name %>.id }}}
+  %tr.brain-damage-list-item{ data: { item: { id: <%= singular_table_name %>.id }}}
 <% for attribute in attributes -%>
-    %td<%= @resource.display_attribute(attribute) %>
+<%= @resource.display_attribute(attribute, indentation: 2, enclosing_haml: '%td') %>
+
 <% end -%>
 
     %td.brain-damage-actions-wrapper
@@ -14,9 +16,9 @@
         %a
           %i.brain-damage-edit.edit.icon
 
-        = link_to <%= singular_table_name %>, :method => :delete, :remote => true, :data => { :confirm => 'Are you sure?' }, :class => 'brain-damage-delete' do
+        = link_to <%= singular_table_name %>, method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'brain-damage-delete' do
           %i.trash.icon
 
-  %tr.brain-damage-edit-list-item{ :data => { :item => { :for => <%= singular_table_name %>.id }}}
-    %td{ :colspan => <%= attributes.length + 2 -%> }
-      = r '<%= plural_table_name %>/table.item.form', :<%= singular_table_name %> => <%= singular_table_name %>
+  %tr.brain-damage-edit-list-item{ data: { item: { for: <%= singular_table_name %>.id }}}
+    %td{ colspan: <%= attributes.length + 2 -%> }
+      = r '<%= plural_table_name %>/table.item.form', <%= singular_table_name %>: <%= singular_table_name %>, nested_on: nested_on

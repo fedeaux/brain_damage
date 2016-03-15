@@ -8,7 +8,7 @@ module BrainDamage
         super
       end
 
-      def html
+      def html(args = {})
         false
       end
     end

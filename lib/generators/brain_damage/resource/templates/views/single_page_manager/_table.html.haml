@@ -3,15 +3,16 @@
 - trailing_form ||= false
 - <%= plural_table_name %> ||= @<%= plural_table_name %>
 - ignore_single_page_manager_script ||= false
+- nested_on ||= nil
 
 %table.ui.table.brain-damage-table.brain-damage-list{ id: id }
-  = r "<%= plural_table_name %>/table.header"
+  = r "<%= plural_table_name %>/table.header", nested_on: nested_on
 
   - <%= plural_table_name %>.each do |<%= singular_table_name %>|
-    = r "<%= plural_table_name %>/table.item", <%= singular_table_name %>: <%= singular_table_name %>
+    = r "<%= plural_table_name %>/table.item", <%= singular_table_name %>: <%= singular_table_name %>, nested_on: nested_on
 
   - if trailing_form
-    = r "<%= plural_table_name %>/table.form", cancel_button: true
+    = r "<%= plural_table_name %>/table.form", cancel_button: true, nested_on: nested_on
 
   - unless ignore_single_page_manager_script
     :javascript

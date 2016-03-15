@@ -1,6 +1,8 @@
+- nested_on ||= nil
+
 %thead
   %tr
 <% for attribute in attributes -%>
-    %th <%= attribute.name %>
+<%= @resource.display_attribute(attribute, indentation: 2, enclosing_haml: '%th', inner_html: attribute.name) %>
 <% end -%>
     %th

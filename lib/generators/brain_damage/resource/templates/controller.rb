@@ -32,7 +32,7 @@ class <%= controller_class_name %>Controller < ApplicationController
       respond_to do |format|
         format.json {
           partial = params[:partial_to_show] ? params[:partial_to_show] : 'table.item'
-          render :json => { :html => render_to_string(:partial => partial, :formats => [:html]) }
+          render :json => { :html => render_to_string(partial: partial, formats: [:html], locals: get_partial_locals )}
         }
 
         format.html {
@@ -51,7 +51,7 @@ class <%= controller_class_name %>Controller < ApplicationController
       respond_to do |format|
         format.json {
           partial = params[:partial_to_show] ? params[:partial_to_show] : 'table.item'
-          render :json => { :html => render_to_string(:partial => partial, :formats => [:html]) }
+          render :json => { :html => render_to_string( partial: partial, formats: [:html], locals: get_partial_locals )}
         }
 
         format.html {
@@ -93,6 +93,10 @@ class <%= controller_class_name %>Controller < ApplicationController
       <%- else -%>
       params.require(:<%= singular_table_name %>).permit(<%= attribute_white_list %>)
       <%- end -%>
+    end
+
+    def get_partial_locals
+      params['partial_locals'] || {}
     end
 end
 <% end -%>

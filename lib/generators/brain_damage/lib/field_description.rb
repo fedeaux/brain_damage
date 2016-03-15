@@ -11,8 +11,8 @@ module BrainDamage
     attr_accessor :attribute
     attr_accessor :virtual
 
-    def display
-      @display.html
+    def display(args = {})
+      @display.html(args)
     end
 
     def initialize(name, description, resource)

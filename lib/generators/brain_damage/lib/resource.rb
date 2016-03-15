@@ -77,7 +77,7 @@ module BrainDamage
       @views_manager = BrainDamage::ViewsManager.new args
     end
 
-    def display_attribute(attribute)
+    def display_attribute(attribute, args = {})
       name = attribute.name.to_sym
 
       unless @fields_descriptions[name]
@@ -85,7 +85,7 @@ module BrainDamage
       end
 
       @fields_descriptions[name].attribute = attribute
-      @fields_descriptions[name].display
+      @fields_descriptions[name].display args
     end
 
     def virtual_fields_white_list

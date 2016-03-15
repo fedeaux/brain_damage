@@ -3,6 +3,7 @@ require 'rails/generators/rails/model/model_generator'
 require 'active_support/core_ext/object/blank'
 
 require_relative '../lib/resource'
+require_relative 'monkeys/string'
 
 module BrainDamage
   class ResourceGenerator < Rails::Generators::ModelGenerator
@@ -94,7 +95,11 @@ module BrainDamage
 
       return nil unless description
 
-      description_file_glob = '*.'+(description.split('=').last.strip.gsub('.rb', '')+'.rb')
+      file_name = description.split('=').last.strip.gsub('.rb', '')+'.rb'
+
+      return File.open Rails.root+'description/'+file_name if file_name =~ /^\d+/
+
+      description_file_glob = '*.'+file_name
       description_file_name = Dir[Rails.root+'description/'+description_file_glob].first
       File.open description_file_name if description_file_name
     end
