@@ -58,6 +58,15 @@ describe_field :area_interests, {
   }
 }
 
+describe_field :product_interests, {
+  relation: {
+    type: :has_many,
+    options: {
+      as: :owner
+    },
+  }
+}
+
 describe_field :links, {
   relation: {
     type: :has_many,
@@ -78,7 +87,7 @@ describe_field :links, {
       editable: true
     }
   }
-                       }
+}
 
 describe_field :phones, {
   relation: {
@@ -160,6 +169,45 @@ describe_field :areas, {
     options: {
       name: :area_ids,
       model: :Area,
+      display: :name,
+      value: :id
+    },
+  },
+
+  display: {
+    type: :inline_edit,
+    options: {
+      display: {
+        type: :association_list,
+        options: {
+      # item: {
+      #   type: :link_to,
+      #   options: {
+      #     display: :name,
+      #     null: :ignore
+      #   }
+      # }
+          method: :name
+        }
+      },
+    }
+  }
+}
+
+describe_field :products, {
+  relation: {
+    type: :has_many,
+    options: {
+      through: :product_interests,
+    },
+  },
+
+  input: {
+    type: :collection_check_boxes,
+    unnested_white_list: { :product_ids => [] },
+    options: {
+      name: :product_ids,
+      model: :Product,
       display: :name,
       value: :id
     },
