@@ -23,7 +23,7 @@ module BrainDamage
       end
 
       def foreign_model_name
-        foreign_singular_table_name.camelcase.capitalize
+        foreign_singular_table_name.camelcase
       end
 
       def resource_name_according_to_foreign

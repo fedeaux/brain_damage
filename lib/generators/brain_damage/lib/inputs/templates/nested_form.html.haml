@@ -1,3 +1,3 @@
 .ui.segment
-  %h3.ui.header <%= nested_plural_table_name.capitalize %>
-  = r "<%= nested_plural_table_name %>/nested.fields", f: f, <%= nested_singular_table_name %>: <%= nested_object_name %>.new, prefix: "<%= singular_table_name %>", nested_on: :<%= nested_on %>
+  %h3.ui.header <%= nested_plural_table_name.humanize %>
+  = r "<%= nested_plural_table_name %>/nested.fields", f: f, <%= nested_singular_table_name %>: <%= nested_model_name %>.new, prefix: "<%= singular_table_name %>", nested_on: :<%= nested_on %>

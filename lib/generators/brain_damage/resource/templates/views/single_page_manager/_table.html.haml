@@ -2,6 +2,7 @@
 
 - trailing_form ||= false
 - <%= plural_table_name %> ||= @<%= plural_table_name %>
+- <%= singular_table_name %>_prototype ||= <%= name %>.new
 - ignore_single_page_manager_script ||= false
 - nested_on ||= nil
 
@@ -12,7 +13,7 @@
     = r "<%= plural_table_name %>/table.item", <%= singular_table_name %>: <%= singular_table_name %>, nested_on: nested_on
 
   - if trailing_form
-    = r "<%= plural_table_name %>/table.form", cancel_button: true, nested_on: nested_on
+    = r "<%= plural_table_name %>/table.form", cancel_button: true, nested_on: nested_on, <%= singular_table_name %>: <%= singular_table_name %>_prototype
 
   - unless ignore_single_page_manager_script
     :javascript

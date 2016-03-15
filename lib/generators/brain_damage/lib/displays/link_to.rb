@@ -18,6 +18,10 @@ module BrainDamage
         return "#{singular_table_name}.#{@options[:method]}" if foreign_field?
         "#{singular_table_name}"
       end
+
+      def include_existance_check?
+        foreign_field?
+      end
     end
   end
 end

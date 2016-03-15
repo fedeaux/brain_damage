@@ -17,8 +17,8 @@ module BrainDamage
         name.to_s.singularize
       end
 
-      def nested_object_name
-        nested_singular_table_name.capitalize
+      def nested_model_name
+        nested_singular_table_name.camelcase
       end
 
       def nested_on

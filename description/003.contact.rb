@@ -78,6 +78,72 @@ describe_field :links, {
       editable: true
     }
   }
+                       }
+
+describe_field :phones, {
+  relation: {
+    type: :has_many,
+    options: {
+      as: :owner
+    },
+  },
+
+  input: {
+    type: :nested_form,
+    white_list: [ :ddi, :ddd, :prefix, :suffix, :ramal, :name ]
+  },
+
+  display: {
+    type: :inline_single_table_manager,
+    options: {
+      deletable: true,
+      editable: true
+    }
+  }
+}
+
+describe_field :emails, {
+  relation: {
+    type: :has_many,
+    options: {
+      as: :owner
+    },
+  },
+
+  input: {
+    type: :nested_form,
+    white_list: [ :name, :email ]
+  },
+
+  display: {
+    type: :inline_single_table_manager,
+    options: {
+      deletable: true,
+      editable: true
+    }
+  }
+}
+
+describe_field :custom_fields, {
+  relation: {
+    type: :has_many,
+    options: {
+      as: :owner
+    },
+  },
+
+  input: {
+    type: :nested_form,
+    white_list: [ :name, :email ]
+  },
+
+  display: {
+    type: :inline_single_table_manager,
+    options: {
+      deletable: true,
+      editable: true
+    }
+  }
 }
 
 describe_field :areas, {

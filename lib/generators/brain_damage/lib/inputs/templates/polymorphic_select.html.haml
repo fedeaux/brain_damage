@@ -11,6 +11,6 @@
 - else
   = hidden_field_tag('partial_locals[nested_on]', nested_on)
 
-  - if nested_on.to_sym == :<%= attribute.name %> and <%= singular_table_name %>.<%= attribute.name %>
+  - if nested_on.try(:to_sym) == :<%= attribute.name %> and <%= singular_table_name %>.<%= attribute.name %>
     = f.hidden_field(:<%= type_select_name %>, value: <%= singular_table_name %>.<%= type_select_name %> )
     = f.hidden_field(:<%= object_select_name %>, value: <%= singular_table_name %>.<%= object_select_name %> )
