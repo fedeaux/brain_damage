@@ -3,12 +3,12 @@ require_relative 'base'
 
 module BrainDamage
   module Displays
-    class ForeignInline < Base
+    class ForeignList < Base
       attr_reader :deletable
       attr_reader :editable
 
       def initialize(options)
-        @deletable = options[:deletable] || false
+        @template_file = 'foreign_list.html.haml'
         @editable = options[:editable] || false
 
         super

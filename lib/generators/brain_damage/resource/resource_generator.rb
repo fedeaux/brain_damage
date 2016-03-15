@@ -43,6 +43,12 @@ module BrainDamage
         target_filename = "#{view.split('/').last}.html.haml"
         template "views/#{source_filename}", File.join("app/views", controller_file_path, target_filename)
       end
+
+      @resource.views_manager.dynamic_views.each do |dynamic_view|
+        target_filename = "#{dynamic_view[:file_name]}.html.haml"
+        create_file File.join("app/views", controller_file_path, target_filename), dynamic_view[:contents]
+      end
+
     end
 
     def copy_scaffold_view_files

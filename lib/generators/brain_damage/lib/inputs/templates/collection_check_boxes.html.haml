@@ -1,4 +1,7 @@
 .field
   = f.label :<%= attribute.name %>
-  .ui.checkbox
-    = f.collection_check_boxes(:<%= options[:name] || attribute.name %>, <%= options[:model] %>.all, :<%= options[:value] %>, :<%= options[:display] %>)
+  = f.collection_check_boxes(:<%= options[:name] || attribute.name %>, <%= options[:model] %>.all, :<%= options[:value] %>, :<%= options[:display] %>) do |b|
+    .ui.basic.label
+      .ui.checkbox
+        = b.check_box
+        = b.label

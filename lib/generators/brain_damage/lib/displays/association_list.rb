@@ -3,14 +3,8 @@ require_relative 'base'
 
 module BrainDamage
   module Displays
-    class ForeignInline < Base
-      attr_reader :deletable
-      attr_reader :editable
-
+    class AssociationList < Base
       def initialize(options)
-        @deletable = options[:deletable] || false
-        @editable = options[:editable] || false
-
         super
       end
 

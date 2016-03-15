@@ -1,7 +1,12 @@
 @BrainDamage ?= {}
 
 class @BrainDamage.InlineEdit
-  constructor: (wrapper_selector, display_selector, edit_selector, partial_to_show = null, edit_complete = null) ->
+  constructor: (wrapper_selector,
+      display_selector = '.brain-damage-inline-edit-display',
+      edit_selector = '.brain-damage-inline-edit-form',
+      partial_to_show = null,
+      edit_complete = null) ->
+
     @wrapper = $ wrapper_selector
     @display_selector = display_selector
     @edit_selector = edit_selector

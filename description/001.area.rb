@@ -5,10 +5,10 @@
   description: :text
 }
 
+set_view_schema(:type => :single_page_manager, :special_views => ['show.inline'])
+
 describe_field :area_interests_ids, {
   relation: {
     type: :has_many,
   }
 }
-
-set_view_schema :single_page_manager

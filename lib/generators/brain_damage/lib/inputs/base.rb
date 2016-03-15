@@ -1,20 +1,14 @@
+require_relative '../templateable/base'
+
 module BrainDamage
   module Inputs
-    class Base
-      attr_reader :options
+    class Base < Templateable::Base
       attr_reader :type
-      attr_reader :field_description
 
       def initialize(options)
-        @options = options
+        super
         @type = self.class.to_s.split('::').last.underscore.to_sym
-
-        @field_description = options[:field_description]
         adjust_name
-      end
-
-      def html
-        ERB.new(File.open("#{__dir__}/templates/#{@template_file}").read).result(binding)
       end
 
       def adjust_name
@@ -27,12 +21,8 @@ module BrainDamage
         end
       end
 
-      def method_missing(method)
-        @field_description.send method
-      end
-
-      class << self
-        attr_accessor :template_file
+      def dir
+        __dir__
       end
     end
   end

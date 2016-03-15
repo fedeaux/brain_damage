@@ -156,6 +156,7 @@ describe_field :areas, {
 
   input: {
     type: :collection_check_boxes,
+    unnested_white_list: { :area_ids => [] },
     options: {
       name: :area_ids,
       model: :Area,
@@ -163,4 +164,23 @@ describe_field :areas, {
       value: :id
     },
   },
+
+  display: {
+    type: :inline_edit,
+    options: {
+      display: {
+        type: :association_list,
+        options: {
+      # item: {
+      #   type: :link_to,
+      #   options: {
+      #     display: :name,
+      #     null: :ignore
+      #   }
+      # }
+          method: :name
+        }
+      },
+    }
+  }
 }

@@ -1,0 +1,20 @@
+- <%= singular_table_name %> = @<%= singular_table_name %>
+
+- id = "inline-edit-<%= singular_table_name %>-#{bd_id}"
+.ui.segment.brain-damage-with-hidden-actions{ :id => id }
+  .brain-damage-inline-edit-display
+<%= inner_display( indentation: 2 ) %>
+
+    .brain-damage-actions
+      %a
+        %i.brain-damage-edit.edit.icon
+
+  .brain-damage-inline-edit-form
+    = form_for <%= singular_table_name %>, html: { :class => 'ui form' }, remote: true do |f|
+<%= input_html( indentation: 3 ) %>
+
+      = f.submit 'Save', :class => 'ui primary button'
+      .ui.basic.button.brain-damage-cancel Cancel
+
+  :coffeescript
+    new BrainDamage.InlineEdit "##{id}", ".brain-damage-inline-edit-display", ".brain-damage-inline-edit-form", "<%= plural_table_name %>/inline_edit/<%= name %>"

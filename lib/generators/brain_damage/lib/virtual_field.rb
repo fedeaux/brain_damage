@@ -18,10 +18,19 @@ module BrainDamage
     def white_list
       if @description[:relation]
         if @description[:relation][:type] == :has_many
-          if @description[:input] and @description[:input][:white_list]
-            return ":#{name.to_s.pluralize}_attributes => #{@description[:input][:white_list].inspect}"
+          if @description[:input]
+            if @description[:input][:white_list]
+              return ":#{name.to_s.pluralize}_attributes => #{@description[:input][:white_list].inspect}"
+
+            elsif @description[:input] and @description[:input][:unnested_white_list]
+              return @description[:input][:unnested_white_list].map { |name, value|
+                ":#{name} => #{value.inspect} "
+              }
+
+            end
           else
             return ":#{name} => []"
+
           end
         end
       end
