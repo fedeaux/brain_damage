@@ -3,6 +3,7 @@ require_relative 'displays/factory'
 require_relative 'views_manager'
 require_relative 'virtual_field'
 require_relative 'validations'
+require_relative 'model_adapter'
 
 module BrainDamage
   class Resource
@@ -12,6 +13,7 @@ module BrainDamage
     attr_reader :views_manager
     attr_reader :virtual_fields
     attr_reader :validations
+    attr_reader :fields_descriptions
 
     def initialize(initializers)
       @plugins = {}
@@ -39,10 +41,16 @@ module BrainDamage
     end
 
     def fields_as_parameters
-      @fields.map { |name, type| field_as_parameter name, type }
+      @fields.map { |name, args| field_as_parameter name, args }
     end
 
-    def field_as_parameter(name, type)
+    def field_as_parameter(name, args)
+      if args.is_a? Symbol
+        type = args.to_s
+      elsif args.is_a? Hash
+        type = args[:type].to_s
+      end
+
       "#{name.to_s}:#{type.to_s}"
     end
 
@@ -96,13 +104,8 @@ module BrainDamage
       }.reject(&:nil?)
     end
 
-    def add_to_model(reorder_lines = [])
-      to_add = reorder_lines
-      if @validations
-        to_add += @validations.add_to_model
-      end
-
-      prettify_model_lines (to_add + @fields_descriptions.values.map(&:add_to_model).flatten).reject(&:nil?)
+    def improve_model_code(model_code)
+      ModelAdapter.improve_model_code self, model_code
     end
 
     def method_missing(method)
@@ -110,44 +113,6 @@ module BrainDamage
     end
 
     def self.method_added(method)
-    end
-
-    private
-    def prettify_model_lines(lines)
-      return [] unless lines.any?
-
-      pairs = lines.map { |line|
-        i = case line
-            when /validates/
-              0
-
-            when /accepts/
-              2
-
-            else
-              1
-            end
-
-        [ line, i]
-      }.sort { |pair_a, pair_b|
-        natural = pair_b[1] <=> pair_a[1]
-        if natural != 0 then natural else pair_b[0] <=> pair_a[0] end
-
-      }
-
-      current_i = pairs.first[1]
-
-      lines = []
-      pairs.each do |pair|
-        if pair[1] != current_i
-          lines << "\n"
-          current_i = pair[1]
-        end
-
-        lines << pair[0]
-      end
-
-      lines
     end
   end
 end

@@ -81,18 +81,20 @@ def describe_nested_dependent_entity(name, relation_options = {}, white_list = [
   }
 end
 
+def describe_internal_fields(*fields)
+  fields.each do |field|
+    describe_field field, {
+      type: :internal
+    }
+  end
+end
+
 def add_predefined_entities_descriptions(*entities)
   if entities.include? :link_to_name
     describe_field :name, {
       display: {
         type: :link_to
       }
-    }
-  end
-
-  if entities.include? :ac_info
-    describe_field :ac_info, {
-      type: :internal
     }
   end
 
@@ -112,20 +114,14 @@ def add_predefined_entities_descriptions(*entities)
     describe_nested_dependent_entity :custom_fields, { as: :owner }, [ :name, :value ]
   end
 
-  if entities.include? :area_interests
-    describe_join_table_field(:area_interests, as: :owner)
-  end
-
-  if entities.include? :product_interests
-    describe_join_table_field(:product_interests, as: :owner) if entities.include? :product_interests
-  end
-
   if entities.include? :areas
     describe_listable_has_many_through(:areas, :area_interests)
+    describe_join_table_field(:area_interests, as: :owner)
   end
 
   if entities.include? :products
     describe_listable_has_many_through(:products, :product_interests)
+    describe_join_table_field(:product_interests, as: :owner) if entities.include? :product_interests
   end
 end
 

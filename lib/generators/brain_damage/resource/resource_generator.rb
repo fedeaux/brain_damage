@@ -58,25 +58,15 @@ module BrainDamage
       template "views/#{source_filename}", File.join("app/views/scaffold/menu_items", target_filename)
     end
 
-    def add_code_to_model
-      @model_file_full_path = "app/models/#{name.underscore}.rb"
+    def improve_model_code
+      model_file_full_path = "app/models/#{name.underscore}.rb"
 
-      return unless File.exists? @model_file_full_path
+      return unless File.exists? model_file_full_path
 
-      file_contents = File.readlines @model_file_full_path
-      reorder_lines = file_contents.select{ |line| line.starts_with? '  ' }
+      file_contents = File.read model_file_full_path
 
-      File.open(@model_file_full_path, 'w+') do |f|
-        f.write file_contents.reject{ |line| line.starts_with? '  ' }.join "\n"
-      end
-
-      @resource.add_to_model(reorder_lines).each do |stretch|
-        line = if stretch =~ /^\s+$/
-            then stretch
-            else "\n  "+stretch.strip
-          end
-
-        inject_into_file @model_file_full_path, line, after: /class .+/, force: true
+      File.open(model_file_full_path, 'w+') do |f|
+        f.write @resource.improve_model_code file_contents
       end
     end
 
