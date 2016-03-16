@@ -13,15 +13,17 @@ module BrainDamage
     attr_reader :virtual_fields
     attr_reader :validations
 
-    def initialize(args)
+    def initialize(initializers)
       @plugins = {}
       @fields_descriptions = {}
       @virtual_fields = []
 
       self.fields = {}
 
-      if args.is_a? File
-        instance_eval args.read, args.path
+      initializers.each do |initializer|
+        if initializer.is_a? File
+          instance_eval initializer.read, initializer.path
+        end
       end
     end
 
@@ -105,6 +107,9 @@ module BrainDamage
 
     def method_missing(method)
       @generator.send method
+    end
+
+    def self.method_added(method)
     end
 
     private

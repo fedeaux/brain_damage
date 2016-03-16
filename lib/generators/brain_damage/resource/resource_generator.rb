@@ -91,7 +91,13 @@ module BrainDamage
     end
 
     def self.get_resource_description(args)
-      BrainDamage::Resource.new get_description_file_from_args(args)
+      initializers = [get_before_each_file, get_description_file_from_args(args)].reject(&:nil?)
+      BrainDamage::Resource.new initializers
+    end
+
+    def self.get_before_each_file
+      before_each_file = Rails.root+'description/before_each.rb'
+      return File.open before_each_file if File.exists? before_each_file
     end
 
     def self.get_description_file_from_args(args)

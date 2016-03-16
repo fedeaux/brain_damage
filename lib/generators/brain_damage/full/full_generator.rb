@@ -10,8 +10,9 @@ module BrainDamage
       descriptions = if options[:descriptions] == '*'
         then
           Dir["description/*"].map { |description|
-            if description[-3, 3] == '.rb' then
-              description.split('/').last
+            file_name = description.split('/').last
+            if (file_name[-3, 3] == '.rb') and file_name =~ /\d+\./ then
+              file_name
             else
               nil
             end
