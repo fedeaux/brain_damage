@@ -40,12 +40,7 @@ set_fields(
   service_price: { type: :decimal, precision: 12, scale: 2, default: 0.0 },
   taxes: { type: :decimal, precision: 12, scale: 2, default: 0.0 },
   taxes_2: { type: :decimal, precision: 12, scale: 2, default: 0.0 },
+  lead: :belongs_to
 )
 
 set_view_schema type: :full_entity
-
-describe_field :lead, {
-  relation: {
-    type: :has_one,
-  }
-}

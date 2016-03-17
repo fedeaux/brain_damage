@@ -52,8 +52,6 @@ set_fields(
 
   bill_to: :'references{polymorphic}',
 
-  financial: :belongs_to,
-  forecast: :belongs_to,
   local: :belongs_to,
 )
 
@@ -65,10 +63,30 @@ set_validations({
 
 set_view_schema( type: :full_entity )
 
+describe_internal_fields(:ac_info,
+                         :evolved_to_1_by,
+                         :evolved_to_2_by,
+                         :evolved_to_3_by,
+                         :evolved_to_4_by,
+                         :evolved_to_5_by,
+                         :evolved_to_6_by)
+
 add_predefined_entities_descriptions(
   :link_to_name,
   :links, :custom_fields,
   :areas, :products
 )
+
+describe_field :forecast, {
+  relation: {
+    type: :has_one,
+  }
+}
+
+describe_field :financial, {
+  relation: {
+    type: :has_one,
+  }
+}
 
 describe_belongs_to_field(:type, :LeadType, :type, :name)

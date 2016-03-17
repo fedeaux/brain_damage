@@ -12,6 +12,7 @@ set_fields(
   price: { type: :decimal, precision: 12, scale: 2, default: 0.0 },
   purchase_probability: :string,
   reason_specified: :string,
+  lead: :belongs_to,
 
   include_on_reports: { :type => :boolean, default: true }
 )
