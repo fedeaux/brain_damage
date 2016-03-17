@@ -1,3 +1,11 @@
+# def describe_current_user_fields(*names)
+#   names.each do |name|
+#     describe_field name, {
+#       type: :current_user
+#     }
+#   end
+# end
+
 def describe_belongs_to_field(name, model, object_method, display_method, display_type = :text)
   describe_field name, {
     type: :belongs_to,
