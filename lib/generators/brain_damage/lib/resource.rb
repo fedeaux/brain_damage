@@ -17,7 +17,7 @@ module BrainDamage
     attr_reader :fields_descriptions
 
     def initialize(initializers)
-      @plugins = {}
+      @plugins = []
       @fields_descriptions = {}
       @virtual_fields = []
 
@@ -66,7 +66,7 @@ module BrainDamage
     end
 
     def add_plugin(name, parameters)
-      @plugins[name] = parameters
+      @plugins << BrainDamage::Plugins::Factory.make(name, parameters)
     end
 
     def describe_field(name, description)
