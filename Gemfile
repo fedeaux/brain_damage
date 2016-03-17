@@ -4,6 +4,7 @@ gem 'rails', '4.2.3'
 
 # Database
 gem 'pg'
+gem 'schema_plus'
 
 # Utility
 gem 'string-urlize'

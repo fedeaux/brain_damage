@@ -1,6 +1,6 @@
-@name = 'Lead'
+set_name 'Lead'
 
-@fields = {
+set_fields(
   awb: :string,
   client_purchase_order: :string,
   commercial_invoice: :string,
@@ -55,7 +55,7 @@
   financial: :belongs_to,
   forecast: :belongs_to,
   local: :belongs_to,
-}
+)
 
 set_validations({
   validations: {

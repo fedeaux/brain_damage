@@ -1,9 +1,9 @@
-@name = 'Area'
+set_name 'Area'
 
-@fields = {
+set_fields(
   name: :string,
   description: :text
-}
+)
 
 set_view_schema(:type => :single_page_manager, :special_views => ['show.inline'])
 

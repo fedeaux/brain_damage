@@ -1,9 +1,9 @@
-@name = 'ProductInterest'
+set_name 'ProductInterest'
 
-@fields = {
+set_fields(
   product: :belongs_to,
   owner: :'references{polymorphic}'
-}
+)
 
 set_view_schema :single_page_manager
 

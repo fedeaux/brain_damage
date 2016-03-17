@@ -1,9 +1,9 @@
-@name = 'Product'
+set_name 'Product'
 
-@fields = {
+set_fields(
   name: :string,
   description: :text
-}
+)
 
 set_view_schema(:type => :single_page_manager, :special_views => ['show.inline'])
 

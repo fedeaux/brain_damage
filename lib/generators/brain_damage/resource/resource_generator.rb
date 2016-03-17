@@ -24,7 +24,14 @@ module BrainDamage
 
     def self.start(args, config)
       self.resource = get_resource_description args
-      args = resource.as_cmd_parameters
+
+      args = resource.as_cmd_parameters + ['--force'] # always force viewes
+      @ignore_migration = self.resource.ignore_migration?
+
+      if @ignore_migration
+        args << '--no-migration'
+      end
+
       super
     end
 
@@ -70,8 +77,19 @@ module BrainDamage
       end
     end
 
-    protected
+    def improve_migration_code
+      return if @ignore_migration
+      file_name = @resource.migration_file_full_path
 
+      return unless file_name and File.exists? file_name
+      file_contents = File.read file_name
+
+      File.open(file_name, 'w+') do |f|
+        f.write @resource.improve_migration_code file_contents
+      end
+    end
+
+    protected
     def all_fields
       attributes + @resource.virtual_fields
     end

@@ -4,12 +4,13 @@ require_relative 'views_manager'
 require_relative 'virtual_field'
 require_relative 'validations'
 require_relative 'model_adapter'
+require_relative 'migration_adapter'
 
 module BrainDamage
   class Resource
-    attr_accessor :name
-    attr_accessor :fields
     attr_accessor :generator
+    attr_accessor :fields
+    attr_reader :name
     attr_reader :views_manager
     attr_reader :virtual_fields
     attr_reader :validations
@@ -29,6 +30,22 @@ module BrainDamage
       end
     end
 
+    def set_fields(fields_hash)
+      @fields = {}
+
+      fields_hash.each { |name, options|
+        if options.is_a? Symbol
+          options = { type: options }
+        end
+
+        @fields[name] = options
+      }
+    end
+
+    def set_name(name)
+      @name = name
+    end
+
     def set_validations(options)
       @validations = BrainDamage::Validations.new options
     end
@@ -41,17 +58,11 @@ module BrainDamage
     end
 
     def fields_as_parameters
-      @fields.map { |name, args| field_as_parameter name, args }
+      @fields.map { |name, options| field_as_parameter name, options }
     end
 
-    def field_as_parameter(name, args)
-      if args.is_a? Symbol
-        type = args.to_s
-      elsif args.is_a? Hash
-        type = args[:type].to_s
-      end
-
-      "#{name.to_s}:#{type.to_s}"
+    def field_as_parameter(name, options)
+      "#{name.to_s}:#{options[:type].to_s}"
     end
 
     def add_plugin(name, parameters)
@@ -108,11 +119,27 @@ module BrainDamage
       ModelAdapter.improve_model_code self, model_code
     end
 
+    def improve_migration_code(migration_code)
+      MigrationAdapter.improve_migration_code self, migration_code
+    end
+
     def method_missing(method)
       @generator.send method
     end
 
-    def self.method_added(method)
+    def migration_file_full_path
+      Dir["db/migrate/*"].select { |file_name|
+        file_name.split('/').last =~ /\d+_create_#{name.underscore.pluralize}.rb/
+      }.first
+    end
+
+    def ignore_migration?
+      migration_file_exists?
+    end
+
+    def migration_file_exists?
+      file_name = migration_file_full_path
+      file_name && File.exists?(file_name)
     end
   end
 end

@@ -1,9 +1,9 @@
-@name = 'AreaInterest'
+set_name 'AreaInterest'
 
-@fields = {
+set_fields(
   area: :belongs_to,
   owner: :'references{polymorphic}'
-}
+)
 
 set_view_schema :single_page_manager
 

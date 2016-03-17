@@ -1,8 +1,8 @@
-@name = 'LeadType'
+set_name 'LeadType'
 
-@fields = {
+set_fields(
   name: :string,
-}
+)
 
 set_view_schema({
   type: :single_page_manager

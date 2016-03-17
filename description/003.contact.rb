@@ -1,11 +1,11 @@
-@name = 'Contact'
+set_name 'Contact'
 
-@fields = {
+set_fields(
   name: :string,
   title: :string,
   contact_role: :belongs_to,
   ac_info: :string
-}
+)
 
 set_validations({
   validations: {
