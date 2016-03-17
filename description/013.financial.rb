@@ -18,7 +18,7 @@ set_fields(
   instrutec_commission_percentage: { type: :decimal, precision: 4, scale: 2, default: 20.0 },
   instrutec_paid_at: :date,
   instrutec_paid_value: { type: :decimal, precision: 12, scale: 2, default: 0.0 },
-  international_expenses: { type: :decimal, recision:12,scale:2,default:0.0 },
+  international_expenses: { type: :decimal, precision:12, scale:2, default:0.0 },
   manual_final_net_value: { type: :decimal, precision: 12, scale: 2, default: 0.0 },
   nationalization: { type: :decimal, precision: 12, scale: 2, default: 0.0 },
   non_commissionable_values: { type: :decimal, precision: 12, scale: 2, default: 0.0 },

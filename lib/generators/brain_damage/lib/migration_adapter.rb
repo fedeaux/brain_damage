@@ -37,8 +37,6 @@ module BrainDamage
     def add_options(line, related_field, field_options)
       options = belongs_to_options line, related_field, field_options
 
-      puts field_options.inspect
-
       field_options.slice(:default, :precision, :scale).each do |key, value|
         options << "#{key}: #{value.inspect}"
       end
