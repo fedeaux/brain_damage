@@ -11,8 +11,6 @@ module BrainDamage
     def improve_model_code(model_code)
       @model_lines = model_code.split "\n"
 
-      return model_code if @model_lines.length == 2
-
       break_model_down
       improve_belongs_to_lines
       add_validations_lines
@@ -62,10 +60,13 @@ module BrainDamage
       if @resource.fields[l[:related_field]] and @resource.fields[l[:related_field]].is_a? Hash
         field_options = @resource.fields[l[:related_field]].dup
         field_options.delete :type
+
         options << field_options.map { |key, value|
           "#{key}: '#{value}'"
         }
       end
+
+      options.flatten!
 
       options = [''] + options if options.length > 0
       options.join ', '

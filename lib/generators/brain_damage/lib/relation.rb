@@ -13,16 +13,20 @@ module BrainDamage
     end
 
     def relation_line
+      line = nil
+
       case @type
         when :has_many
           line = ["has_many :#{name.to_s.gsub('_ids', '')}"]
+        when :has_one
+          line = ["has_one :#{name.to_s.gsub('_id', '')}"]
+      end
 
-          (line + (@description[:options] || {}).map { |name, value|
-            "#{name}: :#{value}"
-          }).join(', ')
-        else
-          nil
-        end
+      if line
+        return(line + (@description[:options] || {}).map { |name, value|
+           "#{name}: :#{value}"
+         }).join(', ')
+      end
     end
 
     def accepts_nested_attributes_for_line

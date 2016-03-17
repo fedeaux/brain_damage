@@ -65,8 +65,6 @@ set_validations({
 
 set_view_schema( type: :full_entity )
 
-describe_belongs_to_field(:contact_role, :ContactRole, :contact_role, :name)
-
 add_predefined_entities_descriptions(
   :link_to_name,
   :links, :custom_fields,
