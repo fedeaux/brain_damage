@@ -115,13 +115,32 @@ module BrainDamage
 
       return nil unless description
 
-      file_name = description.split('=').last.strip.gsub('.rb', '')+'.rb'
+      file_name = description.split('=').last.strip
 
-      return File.open Rails.root+'description/'+file_name if file_name =~ /^\d+/
+      if file_name =~ /^\d+/
+        full_file_name = Rails.root+'description/'+file_name
 
-      description_file_glob = '*.'+file_name
-      description_file_name = Dir[Rails.root+'description/'+description_file_glob].first
-      File.open description_file_name if description_file_name
+      else
+        # Try to find a directory
+        file_glob = '*.'+file_name
+        full_file_name = Dir[Rails.root+'description/'+file_glob].first
+
+        if full_file_name.blank?
+          # No directory? Try a file
+          file_glob += '.rb'
+          full_file_name = Dir[Rails.root+'description/'+file_glob].first
+        end
+      end
+
+      if full_file_name.blank?
+        raise "Couldn't find any file related with #{description}"
+      else
+        if File.directory? full_file_name
+          return File.open "#{full_file_name}/#{file_name.gsub(/^\d+\./, '')}.rb"
+        end
+
+        return File.open full_file_name
+      end
     end
 
     def handler

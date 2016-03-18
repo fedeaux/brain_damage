@@ -11,7 +11,7 @@ module BrainDamage
         then
           Dir["description/*"].map { |description|
             file_name = description.split('/').last
-            if (file_name[-3, 3] == '.rb') and file_name =~ /\d+\./ then
+            if file_name =~ /\d+\./ then
               file_name
             else
               nil

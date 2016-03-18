@@ -1,0 +1,14 @@
+%p#notice= notice
+
+- <%= singular_table_name %> ||= @<%= singular_table_name %>
+
+%h1.ui.header
+  <%= display_attribute(:title) -%>
+  <%= display_attribute(:name) -%>
+
+.ui.two.column.grid
+  .column
+    <%= display_attributes(:contact_role, :emails, :phone, :links, { indentation: 2 }) -%>
+
+  .column
+    <%= display_attributes(:areas, :products, :custom_fields, { indentation: 2 }) -%>
