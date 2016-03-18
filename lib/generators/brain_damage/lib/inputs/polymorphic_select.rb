@@ -25,6 +25,12 @@ module BrainDamage
       def types_options
         @options[:options]
       end
+
+      def polymorphic_select_input
+        input_html = render "polymorphic_select_input.html.haml"
+        return @encapsulated_block.call input_html if @encapsulated_block
+        input_html
+      end
     end
   end
 end

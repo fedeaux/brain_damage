@@ -1,0 +1,6 @@
+<% if attribute %>
+.field
+  = f.label :<%= name %>
+  = f.<%= field_type %> :<%= name %>, name: name_for_input_tag(:<%= name %>, prefix)
+
+<% end %>

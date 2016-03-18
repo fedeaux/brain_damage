@@ -1,0 +1,31 @@
+- prefix ||= '<%= singular_table_name %>'
+
+<% self.default_indentation = 3 %>
+.ui.grid
+  .row
+    .four.wide.column
+<%= input_for :title %>
+
+    .eight.wide.column
+<%= input_for :name %>
+
+    .four.wide.column
+<%= input_for :contact_role %>
+
+  .three.column.row
+    .column
+<%= input_for :emails %>
+
+<%= input_for :links %>
+
+    .column
+<%= input_for :phones %>
+
+<%= input_for :custom_fields %>
+
+    .column
+      .ui.segment
+<%= input_for :areas, 4 %>
+
+      .ui.segment
+<%= input_for :products, 4 %>

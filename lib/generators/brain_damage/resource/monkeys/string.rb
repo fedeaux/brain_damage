@@ -1,10 +1,10 @@
 class String
   def indent(level = 1, spaces_per_level = 2)
-    self.gsub(/^/, ' ' * spaces_per_level * level)
+    self.gsub(/^/, ' ' * spaces_per_level.to_i * level.to_i)
   end
 
   def indent!(level = 1, spaces_per_level = 2)
-    self.gsub!(/^/, ' ' * spaces_per_level * level)
+    self.gsub!(/^/, ' ' * spaces_per_level.to_i * level.to_i)
   end
 
   def indentation

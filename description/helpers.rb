@@ -129,7 +129,7 @@ def add_predefined_entities_descriptions(*entities)
 
   if entities.include? :products
     describe_listable_has_many_through(:products, :product_interests)
-    describe_join_table_field(:product_interests, as: :owner) if entities.include? :product_interests
+    describe_join_table_field(:product_interests, as: :owner)
   end
 end
 

@@ -2,7 +2,7 @@ require 'erb'
 require_relative 'base'
 
 module BrainDamage
-  module Displays
+  module Inputs
     class Unexistent < Base
       def html(args = {})
         false

@@ -11,8 +11,12 @@ module BrainDamage
     attr_accessor :attribute
     attr_accessor :virtual
 
-    def display(args = {})
+    def display_html(args = {})
       @display.html(args)
+    end
+
+    def input_html(args = {}, &block)
+      @input.html(args, &block)
     end
 
     def initialize(name, description, resource)
@@ -24,6 +28,13 @@ module BrainDamage
 
       if description[:input]
         set_input description[:input][:type]
+
+      else
+        if virtual?
+          set_input :unexistent
+        else
+          set_input :default
+        end
       end
 
       if description[:display]

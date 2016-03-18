@@ -15,6 +15,8 @@ module BrainDamage
 
       def html(args = {})
         @html_args = args
+        @encapsulated_block = args[:encapsulated_block]
+
 
         set_inner_html
         add_enclosing_haml
@@ -24,9 +26,13 @@ module BrainDamage
         inner_html
       end
 
+      def render(template_file = @template_file)
+        ERB.new(File.open("#{dir}/templates/#{template_file}").read).result(binding).strip
+      end
+
       def set_inner_html
         unless @html_args[:inner_html]
-          @inner_html = ERB.new(File.open("#{dir}/templates/#{@template_file}").read).result(binding).strip
+          @inner_html = render
         else
           @inner_html = @html_args[:inner_html]
         end
@@ -54,6 +60,7 @@ module BrainDamage
       end
 
       def include_nested_on_guard
+        false
       end
 
       def method_missing(method)

@@ -1,0 +1,29 @@
+- prefix ||= <%= singular_table_name %>
+
+<% self.default_indentation = 3 %>
+.ui.grid
+  .one.column.row
+    .column
+<%= input_for :name %>
+
+  .three.column.row
+    .column
+<%= input_for :ddi %>
+    .column
+<%= input_for :ddd %>
+    .column
+<%= input_for :ramal %>
+
+  .two.column.row
+    .column
+<%= input_for :prefix %>
+    .column
+<%= input_for :suffix %>
+
+<% vsf = input_for :owner, 1 do |inner_html| -%>
+.one.column.row
+  .column
+<%= inner_html.indent 2 %>
+<% end %>
+
+<%= vsf %>

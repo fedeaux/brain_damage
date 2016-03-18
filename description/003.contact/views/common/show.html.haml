@@ -1,0 +1,17 @@
+%p#notice= notice
+
+- <%= singular_table_name %> ||= @<%= singular_table_name %>
+
+%h1.ui.header
+<%= display_attribute(:title, 1) %>
+<%= display_attribute(:name, 1) %>
+  .sub.header
+<%= display_attribute(:contact_role, 2) %>
+
+.ui.two.column.grid
+<% [[:emails, :phones, :links], [:areas, :products, :custom_fields]].each do |column| -%>
+  .column
+<% column.each do |field| -%>
+<%= display_attribute(field, 2) %>
+<% end %>
+<% end -%>

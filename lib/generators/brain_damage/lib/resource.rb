@@ -99,14 +99,43 @@ module BrainDamage
     end
 
     def display_attribute(attribute, args = {})
-      name = attribute.name.to_sym
+      if attribute.is_a? Symbol
+        name = attribute
+        attribute = get_attribute_object attribute
+      else
+        name = attribute.name.to_sym
+      end
+
+      unless attribute
+        raise "Unable to find #{name}"
+      end
 
       unless @fields_descriptions[name]
         @fields_descriptions[name] = BrainDamage::FieldDescription.new name, {}, self
       end
 
       @fields_descriptions[name].attribute = attribute
-      @fields_descriptions[name].display args
+      @fields_descriptions[name].display_html args
+    end
+
+    def input_for(attribute, args = {})
+      if attribute.is_a? Symbol
+        name = attribute
+        attribute = get_attribute_object attribute
+      else
+        name = attribute.name.to_sym
+      end
+
+      unless attribute
+        raise "Unable to find #{name}"
+      end
+
+      unless @fields_descriptions[name]
+        @fields_descriptions[name] = BrainDamage::FieldDescription.new name, {}, self
+      end
+
+      @fields_descriptions[name].attribute = attribute
+      @fields_descriptions[name].input_html args
     end
 
     def virtual_fields_white_list
@@ -140,6 +169,12 @@ module BrainDamage
     def migration_file_exists?
       file_name = migration_file_full_path
       file_name && File.exists?(file_name)
+    end
+
+    def get_attribute_object(name)
+      all_fields.select{ |attribute|
+        attribute.name.to_sym == name.to_sym
+      }.first
     end
   end
 end

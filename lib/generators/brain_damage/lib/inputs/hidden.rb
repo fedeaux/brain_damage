@@ -8,7 +8,7 @@ module BrainDamage
       def initialize(options)
       end
 
-      def html
+      def html(args = {})
         ''
       end
     end

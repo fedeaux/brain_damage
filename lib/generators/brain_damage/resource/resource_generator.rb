@@ -4,11 +4,14 @@ require 'active_support/core_ext/object/blank'
 
 require_relative '../lib/resource'
 require_relative 'monkeys/string'
+require_relative 'helpers'
 
 module BrainDamage
   class ResourceGenerator < Rails::Generators::ModelGenerator
     include Rails::Generators::ModelHelpers
     include Rails::Generators::ResourceHelpers
+    include BrainDamage::ResourceHelpers
+
     source_root File.expand_path('../templates', __FILE__)
 
     class_option :description, desc: "The .rb file with description for this scaffold"
@@ -20,6 +23,7 @@ module BrainDamage
 
     class << self
       attr_accessor :resource
+      attr_accessor :resource_root
     end
 
     def self.start(args, config)
@@ -48,7 +52,7 @@ module BrainDamage
       @resource.views_manager.available_views.each do |view|
         source_filename = "#{view}.html.haml"
         target_filename = "#{view.split('/').last}.html.haml"
-        template "views/#{source_filename}", File.join("app/views", controller_file_path, target_filename)
+        template get_view_template(source_filename), File.join("app/views", controller_file_path, target_filename)
       end
 
       @resource.views_manager.dynamic_views.each do |dynamic_view|
@@ -90,6 +94,15 @@ module BrainDamage
     end
 
     protected
+    def get_view_template(source_filename)
+      if self.class.resource_root
+        candidate_filename = "#{self.class.resource_root}/views/#{source_filename}"
+        return candidate_filename if File.exists? candidate_filename
+      end
+
+      "views/#{source_filename}"
+    end
+
     def all_fields
       attributes + @resource.virtual_fields
     end
@@ -136,7 +149,8 @@ module BrainDamage
         raise "Couldn't find any file related with #{description}"
       else
         if File.directory? full_file_name
-          return File.open "#{full_file_name}/#{file_name.gsub(/^\d+\./, '')}.rb"
+          self.resource_root = full_file_name
+          return File.open "#{resource_root}/#{file_name.gsub(/^\d+\./, '')}.rb"
         end
 
         return File.open full_file_name

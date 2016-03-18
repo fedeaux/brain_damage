@@ -1,12 +1,8 @@
+- prefix ||= '<%= singular_table_name %>'
+
 <% for field in all_fields -%>
-<% field_description = @resource.field_description field -%>
-
-<% if field_description and field_description.input -%>
-<%= field_description.input.html %>
-<% elsif field.field_type -%>
-.field
-  = f.label :<%= field.name %>
-  = f.<%= field.field_type %> :<%= field.name %>
-
+<% input_html = input_for field -%>
+<% if input_html -%>
+<%= input_html %>
 <% end -%>
 <% end -%>

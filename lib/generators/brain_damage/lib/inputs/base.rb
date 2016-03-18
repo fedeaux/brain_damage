@@ -21,6 +21,10 @@ module BrainDamage
         end
       end
 
+      def field_type
+        attribute.field_type
+      end
+
       def dir
         __dir__
       end
